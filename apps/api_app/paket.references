@@ -1,0 +1,6 @@
+FSharp.Core
+Microsoft.AspNetCore.http
+Giraffe
+Microsoft.AspNetCore.Http.Abstractions
+Microsoft.AspNetCore
+Microsoft.NET.Sdk

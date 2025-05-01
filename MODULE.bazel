@@ -1,0 +1,93 @@
+# This is the MODULE.bazel file for the monorepo.
+# It declares the module itself and its dependencies on other Bazel modules.
+
+# Define the name and version of your module.
+# Replace 'your_org_monorepo' and '1.0.0' with appropriate values.
+module(
+    name = "uzero_org",
+    version = "1.0.0",
+    # You can add compatibility level if needed for future versions
+    # compatibility_level = 1,
+)
+
+# --- Declare Dependencies on External Bazel Modules ---
+# Use bazel_dep to declare dependencies on rulesets and other modules.
+# You'll need to find the correct module names and versions for the rules
+# you need for F#, TypeScript, and Python.
+
+# bazel_dep(name = "rules_python", version = "1.4.0-rc4")
+
+# Example: Dependency on rules_js (commonly used for TypeScript/JavaScript)
+# Replace '1.0.0' with the desired version of rules_js.
+# bazel_dep(name = "aspect_rules_ts", version = "3.5.3")
+
+bazel_dep(name = "rules_dotnet", version = "0.18.2")
+
+# --- Register Toolchains ---
+# Toolchains are needed to tell Bazel how to build code for specific languages
+# and platforms. You typically register toolchains provided by the rulesets
+# you declared dependencies on.
+
+# Example: Register Python toolchains
+# This loads the toolchain registration function from rules_python.
+# python = use_extension("@rules_python//python/extensions:python.bzl", "python")
+# python.toolchain(
+#     python_version = "3.13",
+# )
+
+# pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
+# pip.parse(
+#     hub_name = "pypi",
+#     python_version = "3.13",
+#     requirements_lock = "//:requirements_lock.txt",
+# )
+#
+# use_repo(pip, "pypi")
+#
+# rules_ts_ext = use_extension("@aspect_rules_ts//ts:extensions.bzl", "ext", dev_dependency = True)
+# rules_ts_ext.deps(ts_version_from = "//:package.json")
+# use_repo(rules_ts_ext, "npm_typescript")
+#
+
+# This loads the toolchain registration function from rules_dotnet.
+dotnet = use_extension("@rules_dotnet//dotnet:extensions.bzl", "dotnet")
+dotnet.toolchain(dotnet_version = "9.0.101")
+use_repo(dotnet, "dotnet_toolchains")
+
+register_toolchains("@dotnet_toolchains//:all")
+
+paket2bazel_dependencies_extension = use_extension(
+    "@rules_dotnet//dotnet:paket.paket2bazel_dependencies_extension.bzl",
+    "paket2bazel_dependencies_extension")
+use_repo(paket2bazel_dependencies_extension, "paket.paket2bazel_dependencies")
+
+paket_ext = use_extension("//:paket.main_extension.bzl", "main_extension")
+use_repo(paket_ext, "paket.main")
+
+# --- Local Path Overrides (Optional) ---
+# If you need to use a local version of a module instead of fetching it
+# from the registry, you can use local_path_override.
+# local_path_override(
+#     module_name = "rules_python",
+#     path = "/path/to/local/rules_python",
+# )
+
+# --- Use Extensions (Optional) ---
+# Some rulesets provide extensions for more complex dependency management
+# (e.g., fetching npm packages with rules_js).
+# Example: Using the npm extension from rules_js
+# npm = use_extension("@rules_js//npm:extensions.bzl", "npm")
+# use_repo(npm, "npm") # This typically brings in the @npm external repo
+
+# Fetch npm dependencies defined in package.json files
+# npm.install(
+#     package_json = "//:package.json", # Path to your root package.json if you have one
+#     # Or specify package_json files for individual projects:
+#     # package_json = "//apps/typescript-web-app:package.json",
+# )
+
+# --- Custom Extensions (Optional) ---
+# If you have custom logic for dependency resolution or toolchain registration
+# in your tools/bazel_rules directory, you can define and use extensions here.
+# load("//tools/bazel_rules:my_custom_extension.bzl", "my_custom_extension")
+# my_custom_extension.my_macro(...)

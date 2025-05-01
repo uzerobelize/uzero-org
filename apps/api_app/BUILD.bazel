@@ -1,0 +1,35 @@
+load("@rules_dotnet//dotnet:defs.bzl", "fsharp_library", "fsharp_binary")
+
+
+fsharp_library(
+    name = "lib",
+    target_frameworks = ["net9.0"],
+    project_sdk = "web",
+
+    srcs = [
+        "Models.fs",
+        "HttpHandlers.fs"
+    ],
+
+    deps = [
+        "@paket.main//microsoft.aspnetcore.http",
+        "@paket.main//microsoft.aspnetcore.http.abstractions",
+        "@paket.main//fsharp.core",
+        "@paket.main//giraffe",
+    ],
+)
+
+fsharp_binary(
+    name = "app",
+    target_frameworks = ["net9.0"],
+    project_sdk = "web",
+
+    srcs = ["Program.fs"],
+    # Dependencies for the binary. It needs the library it's building from
+    # and potentially other runtime dependencies not included in the library's deps.
+    deps = [
+        ":lib",
+        "@paket.main//fsharp.core",
+        "@paket.main//microsoft.aspnetcore",
+    ],
+)

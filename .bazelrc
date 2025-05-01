@@ -1,0 +1,16 @@
+# Common build options
+build --show_timestamps
+build --color=yes
+build --keep_going
+
+# Example: Default platforms if needed
+# build --platforms=@bazel_tools//platforms:linux_x86_64
+
+# Example: Caching options
+# build --disk_cache=~/.cache/bazel
+
+# Example: Remote caching (configure as needed)
+# build --remote_cache=grpc://localhost:9092
+
+# Example: Toolchain resolution debug
+# build --toolchain_resolution_debug=".*"
