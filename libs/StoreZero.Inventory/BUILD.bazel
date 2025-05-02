@@ -1,10 +1,37 @@
-load("@rules_dotnet//dotnet:defs.bzl", "fsharp_library", "fsharp_binary")
+load("@rules_dotnet//dotnet:defs.bzl", "fsharp_library", "fsharp_binary", "fsharp_nunit_test")
 
+
+fsharp_library(
+    name = "StoreZero.Inventory.Domain.ValueObject",
+    target_frameworks = ["net9.0"],
+    internals_visible_to = ["StoreZero.Inventory.Domain.ValueObject.Tests"],
+    srcs = [
+      "src/StoreZero.fs",
+      "src/Domain/ValueObject.fs",
+    ],
+
+    deps = [
+        "@paket.main//fsharp.core",
+    ],
+)
+
+fsharp_library(
+    name = "StoreZero.Inventory.Domain.Product",
+    target_frameworks = ["net9.0"],
+    internals_visible_to = ["StoreZero.Inventory.Domain.Product.Tests"],
+    srcs = [
+      "src/StoreZero.fs",
+      "src/Domain/Entity/Product.fs",
+    ],
+
+    deps = [
+        "@paket.main//fsharp.core",
+    ],
+)
 
 fsharp_library(
     name = "StoreZero.Inventory",
     target_frameworks = ["net9.0"],
-
     srcs = [
       "src/StoreZero.fs",
       "src/Domain/ValueObject.fs",
@@ -14,4 +41,44 @@ fsharp_library(
     deps = [
         "@paket.main//fsharp.core",
     ],
+)
+
+fsharp_nunit_test(
+    name = "StoreZero.Inventory.Domain.ValueObject.Tests",
+    srcs = [
+      "test/StoreZero.Inventory.Tests/Domain/ValueObjectTest.fs",
+    ],
+
+    target_frameworks = ["net9.0"],
+
+    deps = [
+        ":StoreZero.Inventory.Domain.ValueObject",
+        "@paket.main//fsharp.core",
+        "@paket.main//fsunit",
+        "@paket.main//nunitlite",
+    ],
+
+    # Optional: Add test arguments, environment variables, tags, etc.
+    # args = ["--my-test-arg"],
+    # tags = ["fsharp", "unit"],
+)
+
+fsharp_nunit_test(
+    name = "StoreZero.Inventory.Domain.Product.Tests",
+    srcs = [
+      "test/StoreZero.Inventory.Tests/Domain/ValueObjectTest.fs",
+      "test/StoreZero.Inventory.Tests/Domain/Entity/ProductTest.fs",
+    ],
+
+    target_frameworks = ["net9.0"],
+
+    deps = [
+        ":StoreZero.Inventory.Domain.Product",
+        "@paket.main//fsharp.core",
+        "@paket.main//fsunit",
+        "@paket.main//nunitlite",
+    ],
+    # Optional: Add test arguments, environment variables, tags, etc.
+    # args = ["--my-test-arg"],
+    # tags = ["fsharp", "unit"],
 )

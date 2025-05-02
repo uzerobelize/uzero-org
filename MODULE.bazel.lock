@@ -143,7 +143,7 @@
   "moduleExtensions": {
     "//:paket.main_extension.bzl%main_extension": {
       "general": {
-        "bzlTransitiveDigest": "m5G7O5VfJbwsyn63CwzPrAU94wDjTQ+HZm0vOjzjzRs=",
+        "bzlTransitiveDigest": "chqZ8XP3Sv3o+Vp7eNrrUWtyyTm3i7islUDJWXk7N6U=",
         "usagesDigest": "PyGo2lhe9JTqBePPKnIjl1eDZTpualwlKBljh9d4gIY=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
@@ -169,6 +169,17 @@
               "id": "fsharp.systemtextjson",
               "version": "1.3.13",
               "sha512": "sha512-3zAJrz9aDqmMs/LSxxikp9Ajk2qEHQ4B064rkeoQX2cEUH/Zn1ZIOjXKqgKlRoRSmYGry2tAA6HfvbVLOEzJfw=="
+            }
+          },
+          "nuget.fsunit.v7.0.1": {
+            "repoRuleId": "@@rules_dotnet+//dotnet/private/rules/nuget:nuget_archive.bzl%nuget_archive",
+            "attributes": {
+              "sources": [
+                "https://api.nuget.org/v3/index.json"
+              ],
+              "id": "fsunit",
+              "version": "7.0.1",
+              "sha512": "sha512-GEoGIC2TRoZPpPi01WeAgvwJTmU+vmi7KZPOvcH/IKHmwYyKtCO8qCnwKn/c/TIz/smGCnLtvqH0FTrj2jxOSQ=="
             }
           },
           "nuget.giraffe.v7.0.2": {
@@ -798,6 +809,28 @@
               "sha512": "sha512-tri6QTk5gTglivu7ltBTKKBFe+pGLDWhOJMh1umxIGoWNxo0IWXD5PxKGoIMTvt1okVtWdzafpMM0rsQLHg18w=="
             }
           },
+          "nuget.nunit.v4.3.2": {
+            "repoRuleId": "@@rules_dotnet+//dotnet/private/rules/nuget:nuget_archive.bzl%nuget_archive",
+            "attributes": {
+              "sources": [
+                "https://api.nuget.org/v3/index.json"
+              ],
+              "id": "nunit",
+              "version": "4.3.2",
+              "sha512": "sha512-ZmUmmYZzT2CE2ryAwOP4SJBLJutTGsPEBFAI02zA2+YLiNRIwWqKm+GAhJGVF1VVVoMrWbsVVlg8ITgTtqCRaQ=="
+            }
+          },
+          "nuget.nunitlite.v4.3.2": {
+            "repoRuleId": "@@rules_dotnet+//dotnet/private/rules/nuget:nuget_archive.bzl%nuget_archive",
+            "attributes": {
+              "sources": [
+                "https://api.nuget.org/v3/index.json"
+              ],
+              "id": "nunitlite",
+              "version": "4.3.2",
+              "sha512": "sha512-hPrmYz6QbQXy8eCBiN/M47N9M/i9nY7aLkUXmfMpZu6fMrnAv/B96jd7P5lOxrQ6y5MkEFwNQE/hWSQRIdMnzQ=="
+            }
+          },
           "nuget.system.buffers.v4.6.1": {
             "repoRuleId": "@@rules_dotnet+//dotnet/private/rules/nuget:nuget_archive.bzl%nuget_archive",
             "attributes": {
@@ -1036,6 +1069,7 @@
               "packages": [
                 "{\"dependencies\":{\"net11\":[],\"net20\":[],\"net30\":[],\"net35\":[],\"net40\":[],\"net403\":[],\"net45\":[],\"net451\":[],\"net452\":[],\"net46\":[],\"net461\":[],\"net462\":[],\"net47\":[],\"net471\":[],\"net472\":[],\"net48\":[],\"net5.0\":[],\"net6.0\":[],\"net7.0\":[],\"net8.0\":[],\"net9.0\":[],\"netcoreapp1.0\":[],\"netcoreapp1.1\":[],\"netcoreapp2.0\":[],\"netcoreapp2.1\":[],\"netcoreapp2.2\":[],\"netcoreapp3.0\":[],\"netcoreapp3.1\":[],\"netstandard\":[],\"netstandard1.0\":[],\"netstandard1.1\":[],\"netstandard1.2\":[],\"netstandard1.3\":[],\"netstandard1.4\":[],\"netstandard1.5\":[],\"netstandard1.6\":[],\"netstandard2.0\":[],\"netstandard2.1\":[]},\"framework_list\":[],\"id\":\"FSharp.Core\",\"name\":\"FSharp.Core\",\"sha512\":\"sha512-Y0zNg2iiSK4mIOPcWy4D9rDqqL0MmkIRa25WDqS/mGvTmQb+/KgJrzC6GkvBlqC7sH+5+pH9/ZANZf4oIQXMUg==\",\"sources\":[\"https://api.nuget.org/v3/index.json\"],\"targeting_pack_overrides\":[],\"version\":\"9.0.202\"}",
                 "{\"dependencies\":{\"net11\":[],\"net20\":[],\"net30\":[],\"net35\":[],\"net40\":[],\"net403\":[],\"net45\":[],\"net451\":[],\"net452\":[],\"net46\":[],\"net461\":[\"FSharp.Core\",\"System.Text.Json\"],\"net462\":[\"FSharp.Core\",\"System.Text.Json\"],\"net47\":[\"FSharp.Core\",\"System.Text.Json\"],\"net471\":[\"FSharp.Core\",\"System.Text.Json\"],\"net472\":[\"FSharp.Core\",\"System.Text.Json\"],\"net48\":[\"FSharp.Core\",\"System.Text.Json\"],\"net5.0\":[\"FSharp.Core\",\"System.Text.Json\"],\"net6.0\":[\"FSharp.Core\",\"System.Text.Json\"],\"net7.0\":[\"FSharp.Core\",\"System.Text.Json\"],\"net8.0\":[\"FSharp.Core\",\"System.Text.Json\"],\"net9.0\":[\"FSharp.Core\",\"System.Text.Json\"],\"netcoreapp1.0\":[],\"netcoreapp1.1\":[],\"netcoreapp2.0\":[\"FSharp.Core\",\"System.Text.Json\"],\"netcoreapp2.1\":[\"FSharp.Core\",\"System.Text.Json\"],\"netcoreapp2.2\":[\"FSharp.Core\",\"System.Text.Json\"],\"netcoreapp3.0\":[\"FSharp.Core\",\"System.Text.Json\"],\"netcoreapp3.1\":[\"FSharp.Core\",\"System.Text.Json\"],\"netstandard\":[],\"netstandard1.0\":[],\"netstandard1.1\":[],\"netstandard1.2\":[],\"netstandard1.3\":[],\"netstandard1.4\":[],\"netstandard1.5\":[],\"netstandard1.6\":[],\"netstandard2.0\":[\"FSharp.Core\",\"System.Text.Json\"],\"netstandard2.1\":[\"FSharp.Core\",\"System.Text.Json\"]},\"framework_list\":[],\"id\":\"FSharp.SystemTextJson\",\"name\":\"FSharp.SystemTextJson\",\"sha512\":\"sha512-3zAJrz9aDqmMs/LSxxikp9Ajk2qEHQ4B064rkeoQX2cEUH/Zn1ZIOjXKqgKlRoRSmYGry2tAA6HfvbVLOEzJfw==\",\"sources\":[\"https://api.nuget.org/v3/index.json\"],\"targeting_pack_overrides\":[],\"version\":\"1.3.13\"}",
+                "{\"dependencies\":{\"net11\":[\"NUnit\",\"FSharp.Core\"],\"net20\":[\"NUnit\",\"FSharp.Core\"],\"net30\":[\"NUnit\",\"FSharp.Core\"],\"net35\":[\"NUnit\",\"FSharp.Core\"],\"net40\":[\"NUnit\",\"FSharp.Core\"],\"net403\":[\"NUnit\",\"FSharp.Core\"],\"net45\":[\"NUnit\",\"FSharp.Core\"],\"net451\":[\"NUnit\",\"FSharp.Core\"],\"net452\":[\"NUnit\",\"FSharp.Core\"],\"net46\":[\"NUnit\",\"FSharp.Core\"],\"net461\":[\"NUnit\",\"FSharp.Core\"],\"net462\":[\"NUnit\",\"FSharp.Core\"],\"net47\":[\"NUnit\",\"FSharp.Core\"],\"net471\":[\"NUnit\",\"FSharp.Core\"],\"net472\":[\"NUnit\",\"FSharp.Core\"],\"net48\":[\"NUnit\",\"FSharp.Core\"],\"net5.0\":[\"NUnit\",\"FSharp.Core\"],\"net6.0\":[\"NUnit\",\"FSharp.Core\"],\"net7.0\":[\"NUnit\",\"FSharp.Core\"],\"net8.0\":[\"NUnit\",\"FSharp.Core\"],\"net9.0\":[\"NUnit\",\"FSharp.Core\"],\"netcoreapp1.0\":[\"NUnit\",\"FSharp.Core\"],\"netcoreapp1.1\":[\"NUnit\",\"FSharp.Core\"],\"netcoreapp2.0\":[\"NUnit\",\"FSharp.Core\"],\"netcoreapp2.1\":[\"NUnit\",\"FSharp.Core\"],\"netcoreapp2.2\":[\"NUnit\",\"FSharp.Core\"],\"netcoreapp3.0\":[\"NUnit\",\"FSharp.Core\"],\"netcoreapp3.1\":[\"NUnit\",\"FSharp.Core\"],\"netstandard\":[\"NUnit\",\"FSharp.Core\"],\"netstandard1.0\":[\"NUnit\",\"FSharp.Core\"],\"netstandard1.1\":[\"NUnit\",\"FSharp.Core\"],\"netstandard1.2\":[\"NUnit\",\"FSharp.Core\"],\"netstandard1.3\":[\"NUnit\",\"FSharp.Core\"],\"netstandard1.4\":[\"NUnit\",\"FSharp.Core\"],\"netstandard1.5\":[\"NUnit\",\"FSharp.Core\"],\"netstandard1.6\":[\"NUnit\",\"FSharp.Core\"],\"netstandard2.0\":[\"NUnit\",\"FSharp.Core\"],\"netstandard2.1\":[\"NUnit\",\"FSharp.Core\"]},\"framework_list\":[],\"id\":\"FsUnit\",\"name\":\"FsUnit\",\"sha512\":\"sha512-GEoGIC2TRoZPpPi01WeAgvwJTmU+vmi7KZPOvcH/IKHmwYyKtCO8qCnwKn/c/TIz/smGCnLtvqH0FTrj2jxOSQ==\",\"sources\":[\"https://api.nuget.org/v3/index.json\"],\"targeting_pack_overrides\":[],\"version\":\"7.0.1\"}",
                 "{\"dependencies\":{\"net11\":[],\"net20\":[],\"net30\":[],\"net35\":[],\"net40\":[],\"net403\":[],\"net45\":[],\"net451\":[],\"net452\":[],\"net46\":[],\"net461\":[],\"net462\":[],\"net47\":[],\"net471\":[],\"net472\":[],\"net48\":[],\"net5.0\":[],\"net6.0\":[\"FSharp.Core\",\"FSharp.SystemTextJson\",\"Giraffe.ViewEngine\",\"Microsoft.IO.RecyclableMemoryStream\",\"System.Text.Json\"],\"net7.0\":[\"FSharp.Core\",\"FSharp.SystemTextJson\",\"Giraffe.ViewEngine\",\"Microsoft.IO.RecyclableMemoryStream\",\"System.Text.Json\"],\"net8.0\":[\"FSharp.Core\",\"FSharp.SystemTextJson\",\"Giraffe.ViewEngine\",\"Microsoft.IO.RecyclableMemoryStream\",\"System.Text.Json\"],\"net9.0\":[\"FSharp.Core\",\"FSharp.SystemTextJson\",\"Giraffe.ViewEngine\",\"Microsoft.IO.RecyclableMemoryStream\",\"System.Text.Json\"],\"netcoreapp1.0\":[],\"netcoreapp1.1\":[],\"netcoreapp2.0\":[],\"netcoreapp2.1\":[],\"netcoreapp2.2\":[],\"netcoreapp3.0\":[],\"netcoreapp3.1\":[],\"netstandard\":[],\"netstandard1.0\":[],\"netstandard1.1\":[],\"netstandard1.2\":[],\"netstandard1.3\":[],\"netstandard1.4\":[],\"netstandard1.5\":[],\"netstandard1.6\":[],\"netstandard2.0\":[],\"netstandard2.1\":[]},\"framework_list\":[],\"id\":\"Giraffe\",\"name\":\"Giraffe\",\"sha512\":\"sha512-aP3f0v0CEoD1JqR1dcxjZd8JLv+xpMZ/6jxxPBwZSUIdRbyKvzYYDmubQZ4TE9egnYDUU6ooFgJ/URZXfXM+eg==\",\"sources\":[\"https://api.nuget.org/v3/index.json\"],\"targeting_pack_overrides\":[],\"version\":\"7.0.2\"}",
                 "{\"dependencies\":{\"net11\":[],\"net20\":[],\"net30\":[],\"net35\":[],\"net40\":[],\"net403\":[],\"net45\":[],\"net451\":[],\"net452\":[],\"net46\":[],\"net461\":[\"FSharp.Core\"],\"net462\":[\"FSharp.Core\"],\"net47\":[\"FSharp.Core\"],\"net471\":[\"FSharp.Core\"],\"net472\":[\"FSharp.Core\"],\"net48\":[\"FSharp.Core\"],\"net5.0\":[\"FSharp.Core\"],\"net6.0\":[\"FSharp.Core\"],\"net7.0\":[\"FSharp.Core\"],\"net8.0\":[\"FSharp.Core\"],\"net9.0\":[\"FSharp.Core\"],\"netcoreapp1.0\":[],\"netcoreapp1.1\":[],\"netcoreapp2.0\":[\"FSharp.Core\"],\"netcoreapp2.1\":[\"FSharp.Core\"],\"netcoreapp2.2\":[\"FSharp.Core\"],\"netcoreapp3.0\":[\"FSharp.Core\"],\"netcoreapp3.1\":[\"FSharp.Core\"],\"netstandard\":[],\"netstandard1.0\":[],\"netstandard1.1\":[],\"netstandard1.2\":[],\"netstandard1.3\":[],\"netstandard1.4\":[],\"netstandard1.5\":[],\"netstandard1.6\":[],\"netstandard2.0\":[\"FSharp.Core\"],\"netstandard2.1\":[\"FSharp.Core\"]},\"framework_list\":[],\"id\":\"Giraffe.ViewEngine\",\"name\":\"Giraffe.ViewEngine\",\"sha512\":\"sha512-m/DdEb0Vb5MlPlKuYgPS+XggwhznNvBkOY6OHSnciHlbwIK9oyGQ9h1Rohf5JOqfqRPu5tOfCJblS5Sj+ZvBsw==\",\"sources\":[\"https://api.nuget.org/v3/index.json\"],\"targeting_pack_overrides\":[],\"version\":\"1.4.0\"}",
                 "{\"dependencies\":{\"net11\":[],\"net20\":[],\"net30\":[],\"net35\":[],\"net40\":[],\"net403\":[],\"net45\":[],\"net451\":[],\"net452\":[],\"net46\":[],\"net461\":[\"Microsoft.AspNetCore.Hosting\",\"Microsoft.AspNetCore.Routing\",\"Microsoft.AspNetCore.Diagnostics\",\"Microsoft.AspNetCore.HostFiltering\",\"Microsoft.AspNetCore.Server.IISIntegration\",\"Microsoft.AspNetCore.Server.Kestrel.Core\",\"Microsoft.AspNetCore.Server.Kestrel.Https\",\"Microsoft.AspNetCore.Server.Kestrel\",\"Microsoft.Extensions.Configuration.CommandLine\",\"Microsoft.Extensions.Configuration.EnvironmentVariables\",\"Microsoft.Extensions.Configuration.FileExtensions\",\"Microsoft.Extensions.Configuration.Json\",\"Microsoft.Extensions.Configuration.UserSecrets\",\"Microsoft.Extensions.Logging\",\"Microsoft.Extensions.Logging.Configuration\",\"Microsoft.Extensions.Logging.Console\",\"Microsoft.Extensions.Logging.Debug\"],\"net462\":[\"Microsoft.AspNetCore.Hosting\",\"Microsoft.AspNetCore.Routing\",\"Microsoft.AspNetCore.Diagnostics\",\"Microsoft.AspNetCore.HostFiltering\",\"Microsoft.AspNetCore.Server.IISIntegration\",\"Microsoft.AspNetCore.Server.Kestrel.Core\",\"Microsoft.AspNetCore.Server.Kestrel.Https\",\"Microsoft.AspNetCore.Server.Kestrel\",\"Microsoft.Extensions.Configuration.CommandLine\",\"Microsoft.Extensions.Configuration.EnvironmentVariables\",\"Microsoft.Extensions.Configuration.FileExtensions\",\"Microsoft.Extensions.Configuration.Json\",\"Microsoft.Extensions.Configuration.UserSecrets\",\"Microsoft.Extensions.Logging\",\"Microsoft.Extensions.Logging.Configuration\",\"Microsoft.Extensions.Logging.Console\",\"Microsoft.Extensions.Logging.Debug\"],\"net47\":[\"Microsoft.AspNetCore.Hosting\",\"Microsoft.AspNetCore.Routing\",\"Microsoft.AspNetCore.Diagnostics\",\"Microsoft.AspNetCore.HostFiltering\",\"Microsoft.AspNetCore.Server.IISIntegration\",\"Microsoft.AspNetCore.Server.Kestrel.Core\",\"Microsoft.AspNetCore.Server.Kestrel.Https\",\"Microsoft.AspNetCore.Server.Kestrel\",\"Microsoft.Extensions.Configuration.CommandLine\",\"Microsoft.Extensions.Configuration.EnvironmentVariables\",\"Microsoft.Extensions.Configuration.FileExtensions\",\"Microsoft.Extensions.Configuration.Json\",\"Microsoft.Extensions.Configuration.UserSecrets\",\"Microsoft.Extensions.Logging\",\"Microsoft.Extensions.Logging.Configuration\",\"Microsoft.Extensions.Logging.Console\",\"Microsoft.Extensions.Logging.Debug\"],\"net471\":[\"Microsoft.AspNetCore.Hosting\",\"Microsoft.AspNetCore.Routing\",\"Microsoft.AspNetCore.Diagnostics\",\"Microsoft.AspNetCore.HostFiltering\",\"Microsoft.AspNetCore.Server.IISIntegration\",\"Microsoft.AspNetCore.Server.Kestrel.Core\",\"Microsoft.AspNetCore.Server.Kestrel.Https\",\"Microsoft.AspNetCore.Server.Kestrel\",\"Microsoft.Extensions.Configuration.CommandLine\",\"Microsoft.Extensions.Configuration.EnvironmentVariables\",\"Microsoft.Extensions.Configuration.FileExtensions\",\"Microsoft.Extensions.Configuration.Json\",\"Microsoft.Extensions.Configuration.UserSecrets\",\"Microsoft.Extensions.Logging\",\"Microsoft.Extensions.Logging.Configuration\",\"Microsoft.Extensions.Logging.Console\",\"Microsoft.Extensions.Logging.Debug\"],\"net472\":[\"Microsoft.AspNetCore.Hosting\",\"Microsoft.AspNetCore.Routing\",\"Microsoft.AspNetCore.Diagnostics\",\"Microsoft.AspNetCore.HostFiltering\",\"Microsoft.AspNetCore.Server.IISIntegration\",\"Microsoft.AspNetCore.Server.Kestrel.Core\",\"Microsoft.AspNetCore.Server.Kestrel.Https\",\"Microsoft.AspNetCore.Server.Kestrel\",\"Microsoft.Extensions.Configuration.CommandLine\",\"Microsoft.Extensions.Configuration.EnvironmentVariables\",\"Microsoft.Extensions.Configuration.FileExtensions\",\"Microsoft.Extensions.Configuration.Json\",\"Microsoft.Extensions.Configuration.UserSecrets\",\"Microsoft.Extensions.Logging\",\"Microsoft.Extensions.Logging.Configuration\",\"Microsoft.Extensions.Logging.Console\",\"Microsoft.Extensions.Logging.Debug\"],\"net48\":[\"Microsoft.AspNetCore.Hosting\",\"Microsoft.AspNetCore.Routing\",\"Microsoft.AspNetCore.Diagnostics\",\"Microsoft.AspNetCore.HostFiltering\",\"Microsoft.AspNetCore.Server.IISIntegration\",\"Microsoft.AspNetCore.Server.Kestrel.Core\",\"Microsoft.AspNetCore.Server.Kestrel.Https\",\"Microsoft.AspNetCore.Server.Kestrel\",\"Microsoft.Extensions.Configuration.CommandLine\",\"Microsoft.Extensions.Configuration.EnvironmentVariables\",\"Microsoft.Extensions.Configuration.FileExtensions\",\"Microsoft.Extensions.Configuration.Json\",\"Microsoft.Extensions.Configuration.UserSecrets\",\"Microsoft.Extensions.Logging\",\"Microsoft.Extensions.Logging.Configuration\",\"Microsoft.Extensions.Logging.Console\",\"Microsoft.Extensions.Logging.Debug\"],\"net5.0\":[\"Microsoft.AspNetCore.Hosting\",\"Microsoft.AspNetCore.Routing\",\"Microsoft.AspNetCore.Diagnostics\",\"Microsoft.AspNetCore.HostFiltering\",\"Microsoft.AspNetCore.Server.IISIntegration\",\"Microsoft.AspNetCore.Server.Kestrel.Core\",\"Microsoft.AspNetCore.Server.Kestrel.Https\",\"Microsoft.AspNetCore.Server.Kestrel\",\"Microsoft.Extensions.Configuration.CommandLine\",\"Microsoft.Extensions.Configuration.EnvironmentVariables\",\"Microsoft.Extensions.Configuration.FileExtensions\",\"Microsoft.Extensions.Configuration.Json\",\"Microsoft.Extensions.Configuration.UserSecrets\",\"Microsoft.Extensions.Logging\",\"Microsoft.Extensions.Logging.Configuration\",\"Microsoft.Extensions.Logging.Console\",\"Microsoft.Extensions.Logging.Debug\"],\"net6.0\":[\"Microsoft.AspNetCore.Hosting\",\"Microsoft.AspNetCore.Routing\",\"Microsoft.AspNetCore.Diagnostics\",\"Microsoft.AspNetCore.HostFiltering\",\"Microsoft.AspNetCore.Server.IISIntegration\",\"Microsoft.AspNetCore.Server.Kestrel.Core\",\"Microsoft.AspNetCore.Server.Kestrel.Https\",\"Microsoft.AspNetCore.Server.Kestrel\",\"Microsoft.Extensions.Configuration.CommandLine\",\"Microsoft.Extensions.Configuration.EnvironmentVariables\",\"Microsoft.Extensions.Configuration.FileExtensions\",\"Microsoft.Extensions.Configuration.Json\",\"Microsoft.Extensions.Configuration.UserSecrets\",\"Microsoft.Extensions.Logging\",\"Microsoft.Extensions.Logging.Configuration\",\"Microsoft.Extensions.Logging.Console\",\"Microsoft.Extensions.Logging.Debug\"],\"net7.0\":[\"Microsoft.AspNetCore.Hosting\",\"Microsoft.AspNetCore.Routing\",\"Microsoft.AspNetCore.Diagnostics\",\"Microsoft.AspNetCore.HostFiltering\",\"Microsoft.AspNetCore.Server.IISIntegration\",\"Microsoft.AspNetCore.Server.Kestrel.Core\",\"Microsoft.AspNetCore.Server.Kestrel.Https\",\"Microsoft.AspNetCore.Server.Kestrel\",\"Microsoft.Extensions.Configuration.CommandLine\",\"Microsoft.Extensions.Configuration.EnvironmentVariables\",\"Microsoft.Extensions.Configuration.FileExtensions\",\"Microsoft.Extensions.Configuration.Json\",\"Microsoft.Extensions.Configuration.UserSecrets\",\"Microsoft.Extensions.Logging\",\"Microsoft.Extensions.Logging.Configuration\",\"Microsoft.Extensions.Logging.Console\",\"Microsoft.Extensions.Logging.Debug\"],\"net8.0\":[\"Microsoft.AspNetCore.Hosting\",\"Microsoft.AspNetCore.Routing\",\"Microsoft.AspNetCore.Diagnostics\",\"Microsoft.AspNetCore.HostFiltering\",\"Microsoft.AspNetCore.Server.IISIntegration\",\"Microsoft.AspNetCore.Server.Kestrel.Core\",\"Microsoft.AspNetCore.Server.Kestrel.Https\",\"Microsoft.AspNetCore.Server.Kestrel\",\"Microsoft.Extensions.Configuration.CommandLine\",\"Microsoft.Extensions.Configuration.EnvironmentVariables\",\"Microsoft.Extensions.Configuration.FileExtensions\",\"Microsoft.Extensions.Configuration.Json\",\"Microsoft.Extensions.Configuration.UserSecrets\",\"Microsoft.Extensions.Logging\",\"Microsoft.Extensions.Logging.Configuration\",\"Microsoft.Extensions.Logging.Console\",\"Microsoft.Extensions.Logging.Debug\"],\"net9.0\":[\"Microsoft.AspNetCore.Hosting\",\"Microsoft.AspNetCore.Routing\",\"Microsoft.AspNetCore.Diagnostics\",\"Microsoft.AspNetCore.HostFiltering\",\"Microsoft.AspNetCore.Server.IISIntegration\",\"Microsoft.AspNetCore.Server.Kestrel.Core\",\"Microsoft.AspNetCore.Server.Kestrel.Https\",\"Microsoft.AspNetCore.Server.Kestrel\",\"Microsoft.Extensions.Configuration.CommandLine\",\"Microsoft.Extensions.Configuration.EnvironmentVariables\",\"Microsoft.Extensions.Configuration.FileExtensions\",\"Microsoft.Extensions.Configuration.Json\",\"Microsoft.Extensions.Configuration.UserSecrets\",\"Microsoft.Extensions.Logging\",\"Microsoft.Extensions.Logging.Configuration\",\"Microsoft.Extensions.Logging.Console\",\"Microsoft.Extensions.Logging.Debug\"],\"netcoreapp1.0\":[],\"netcoreapp1.1\":[],\"netcoreapp2.0\":[\"Microsoft.AspNetCore.Hosting\",\"Microsoft.AspNetCore.Routing\",\"Microsoft.AspNetCore.Diagnostics\",\"Microsoft.AspNetCore.HostFiltering\",\"Microsoft.AspNetCore.Server.IISIntegration\",\"Microsoft.AspNetCore.Server.Kestrel.Core\",\"Microsoft.AspNetCore.Server.Kestrel.Https\",\"Microsoft.AspNetCore.Server.Kestrel\",\"Microsoft.Extensions.Configuration.CommandLine\",\"Microsoft.Extensions.Configuration.EnvironmentVariables\",\"Microsoft.Extensions.Configuration.FileExtensions\",\"Microsoft.Extensions.Configuration.Json\",\"Microsoft.Extensions.Configuration.UserSecrets\",\"Microsoft.Extensions.Logging\",\"Microsoft.Extensions.Logging.Configuration\",\"Microsoft.Extensions.Logging.Console\",\"Microsoft.Extensions.Logging.Debug\"],\"netcoreapp2.1\":[\"Microsoft.AspNetCore.Hosting\",\"Microsoft.AspNetCore.Routing\",\"Microsoft.AspNetCore.Diagnostics\",\"Microsoft.AspNetCore.HostFiltering\",\"Microsoft.AspNetCore.Server.IISIntegration\",\"Microsoft.AspNetCore.Server.Kestrel.Core\",\"Microsoft.AspNetCore.Server.Kestrel.Https\",\"Microsoft.AspNetCore.Server.Kestrel\",\"Microsoft.Extensions.Configuration.CommandLine\",\"Microsoft.Extensions.Configuration.EnvironmentVariables\",\"Microsoft.Extensions.Configuration.FileExtensions\",\"Microsoft.Extensions.Configuration.Json\",\"Microsoft.Extensions.Configuration.UserSecrets\",\"Microsoft.Extensions.Logging\",\"Microsoft.Extensions.Logging.Configuration\",\"Microsoft.Extensions.Logging.Console\",\"Microsoft.Extensions.Logging.Debug\"],\"netcoreapp2.2\":[\"Microsoft.AspNetCore.Hosting\",\"Microsoft.AspNetCore.Routing\",\"Microsoft.AspNetCore.Diagnostics\",\"Microsoft.AspNetCore.HostFiltering\",\"Microsoft.AspNetCore.Server.IISIntegration\",\"Microsoft.AspNetCore.Server.Kestrel.Core\",\"Microsoft.AspNetCore.Server.Kestrel.Https\",\"Microsoft.AspNetCore.Server.Kestrel\",\"Microsoft.Extensions.Configuration.CommandLine\",\"Microsoft.Extensions.Configuration.EnvironmentVariables\",\"Microsoft.Extensions.Configuration.FileExtensions\",\"Microsoft.Extensions.Configuration.Json\",\"Microsoft.Extensions.Configuration.UserSecrets\",\"Microsoft.Extensions.Logging\",\"Microsoft.Extensions.Logging.Configuration\",\"Microsoft.Extensions.Logging.Console\",\"Microsoft.Extensions.Logging.Debug\"],\"netcoreapp3.0\":[\"Microsoft.AspNetCore.Hosting\",\"Microsoft.AspNetCore.Routing\",\"Microsoft.AspNetCore.Diagnostics\",\"Microsoft.AspNetCore.HostFiltering\",\"Microsoft.AspNetCore.Server.IISIntegration\",\"Microsoft.AspNetCore.Server.Kestrel.Core\",\"Microsoft.AspNetCore.Server.Kestrel.Https\",\"Microsoft.AspNetCore.Server.Kestrel\",\"Microsoft.Extensions.Configuration.CommandLine\",\"Microsoft.Extensions.Configuration.EnvironmentVariables\",\"Microsoft.Extensions.Configuration.FileExtensions\",\"Microsoft.Extensions.Configuration.Json\",\"Microsoft.Extensions.Configuration.UserSecrets\",\"Microsoft.Extensions.Logging\",\"Microsoft.Extensions.Logging.Configuration\",\"Microsoft.Extensions.Logging.Console\",\"Microsoft.Extensions.Logging.Debug\"],\"netcoreapp3.1\":[\"Microsoft.AspNetCore.Hosting\",\"Microsoft.AspNetCore.Routing\",\"Microsoft.AspNetCore.Diagnostics\",\"Microsoft.AspNetCore.HostFiltering\",\"Microsoft.AspNetCore.Server.IISIntegration\",\"Microsoft.AspNetCore.Server.Kestrel.Core\",\"Microsoft.AspNetCore.Server.Kestrel.Https\",\"Microsoft.AspNetCore.Server.Kestrel\",\"Microsoft.Extensions.Configuration.CommandLine\",\"Microsoft.Extensions.Configuration.EnvironmentVariables\",\"Microsoft.Extensions.Configuration.FileExtensions\",\"Microsoft.Extensions.Configuration.Json\",\"Microsoft.Extensions.Configuration.UserSecrets\",\"Microsoft.Extensions.Logging\",\"Microsoft.Extensions.Logging.Configuration\",\"Microsoft.Extensions.Logging.Console\",\"Microsoft.Extensions.Logging.Debug\"],\"netstandard\":[],\"netstandard1.0\":[],\"netstandard1.1\":[],\"netstandard1.2\":[],\"netstandard1.3\":[],\"netstandard1.4\":[],\"netstandard1.5\":[],\"netstandard1.6\":[],\"netstandard2.0\":[\"Microsoft.AspNetCore.Hosting\",\"Microsoft.AspNetCore.Routing\",\"Microsoft.AspNetCore.Diagnostics\",\"Microsoft.AspNetCore.HostFiltering\",\"Microsoft.AspNetCore.Server.IISIntegration\",\"Microsoft.AspNetCore.Server.Kestrel.Core\",\"Microsoft.AspNetCore.Server.Kestrel.Https\",\"Microsoft.AspNetCore.Server.Kestrel\",\"Microsoft.Extensions.Configuration.CommandLine\",\"Microsoft.Extensions.Configuration.EnvironmentVariables\",\"Microsoft.Extensions.Configuration.FileExtensions\",\"Microsoft.Extensions.Configuration.Json\",\"Microsoft.Extensions.Configuration.UserSecrets\",\"Microsoft.Extensions.Logging\",\"Microsoft.Extensions.Logging.Configuration\",\"Microsoft.Extensions.Logging.Console\",\"Microsoft.Extensions.Logging.Debug\"],\"netstandard2.1\":[\"Microsoft.AspNetCore.Hosting\",\"Microsoft.AspNetCore.Routing\",\"Microsoft.AspNetCore.Diagnostics\",\"Microsoft.AspNetCore.HostFiltering\",\"Microsoft.AspNetCore.Server.IISIntegration\",\"Microsoft.AspNetCore.Server.Kestrel.Core\",\"Microsoft.AspNetCore.Server.Kestrel.Https\",\"Microsoft.AspNetCore.Server.Kestrel\",\"Microsoft.Extensions.Configuration.CommandLine\",\"Microsoft.Extensions.Configuration.EnvironmentVariables\",\"Microsoft.Extensions.Configuration.FileExtensions\",\"Microsoft.Extensions.Configuration.Json\",\"Microsoft.Extensions.Configuration.UserSecrets\",\"Microsoft.Extensions.Logging\",\"Microsoft.Extensions.Logging.Configuration\",\"Microsoft.Extensions.Logging.Console\",\"Microsoft.Extensions.Logging.Debug\"]},\"framework_list\":[],\"id\":\"Microsoft.AspNetCore\",\"name\":\"Microsoft.AspNetCore\",\"sha512\":\"sha512-O+fz77ymhuVHNZ1DckcEo4vzKIsN7IibDAU3Wt1nxiWLtGTrG29osnvDRhOPTWf41P2V3D+OtNzxBtgMvchf1g==\",\"sources\":[\"https://api.nuget.org/v3/index.json\"],\"targeting_pack_overrides\":[],\"version\":\"2.3.0\"}",
@@ -1093,6 +1127,8 @@
                 "{\"dependencies\":{\"net11\":[],\"net20\":[],\"net30\":[],\"net35\":[],\"net40\":[],\"net403\":[],\"net45\":[],\"net451\":[],\"net452\":[],\"net46\":[],\"net461\":[],\"net462\":[],\"net47\":[],\"net471\":[],\"net472\":[],\"net48\":[],\"net5.0\":[],\"net6.0\":[],\"net7.0\":[],\"net8.0\":[],\"net9.0\":[],\"netcoreapp1.0\":[],\"netcoreapp1.1\":[],\"netcoreapp2.0\":[],\"netcoreapp2.1\":[],\"netcoreapp2.2\":[],\"netcoreapp3.0\":[],\"netcoreapp3.1\":[],\"netstandard\":[],\"netstandard1.0\":[],\"netstandard1.1\":[],\"netstandard1.2\":[],\"netstandard1.3\":[],\"netstandard1.4\":[],\"netstandard1.5\":[],\"netstandard1.6\":[],\"netstandard2.0\":[],\"netstandard2.1\":[]},\"framework_list\":[],\"id\":\"Microsoft.NET.Sdk\",\"name\":\"Microsoft.NET.Sdk\",\"sha512\":\"sha512-/VaRJtZ9zHF8olDnMz5saSAYcS41MTRbQJgDEj9b/ZqmgTXjIRY7JfGxnZmqrg9xSDK6vFprLfoRZxZ7VxV6LQ==\",\"sources\":[\"https://api.nuget.org/v3/index.json\"],\"targeting_pack_overrides\":[],\"version\":\"1.0.0-alpha-20161104-2\"}",
                 "{\"dependencies\":{\"net11\":[],\"net20\":[],\"net30\":[],\"net35\":[],\"net40\":[],\"net403\":[],\"net45\":[],\"net451\":[],\"net452\":[],\"net46\":[],\"net461\":[],\"net462\":[],\"net47\":[],\"net471\":[],\"net472\":[],\"net48\":[],\"net5.0\":[],\"net6.0\":[],\"net7.0\":[],\"net8.0\":[],\"net9.0\":[],\"netcoreapp1.0\":[],\"netcoreapp1.1\":[],\"netcoreapp2.0\":[],\"netcoreapp2.1\":[],\"netcoreapp2.2\":[],\"netcoreapp3.0\":[],\"netcoreapp3.1\":[],\"netstandard\":[],\"netstandard1.0\":[],\"netstandard1.1\":[],\"netstandard1.2\":[],\"netstandard1.3\":[],\"netstandard1.4\":[],\"netstandard1.5\":[],\"netstandard1.6\":[],\"netstandard2.0\":[],\"netstandard2.1\":[]},\"framework_list\":[],\"id\":\"Microsoft.NETCore.Platforms\",\"name\":\"Microsoft.NETCore.Platforms\",\"sha512\":\"sha512-mcQWjuDBh4WHGG4WcBI0k025WAdA2afMm6fs42sm1f+3gRyNQUiuMVT5gAWNUGSHmlu6qn/TCnAQpfl4Gm6cBw==\",\"sources\":[\"https://api.nuget.org/v3/index.json\"],\"targeting_pack_overrides\":[],\"version\":\"7.0.4\"}",
                 "{\"dependencies\":{\"net11\":[],\"net20\":[],\"net30\":[],\"net35\":[],\"net40\":[],\"net403\":[],\"net45\":[],\"net451\":[],\"net452\":[],\"net46\":[],\"net461\":[],\"net462\":[],\"net47\":[],\"net471\":[],\"net472\":[],\"net48\":[],\"net5.0\":[],\"net6.0\":[],\"net7.0\":[],\"net8.0\":[],\"net9.0\":[],\"netcoreapp1.0\":[],\"netcoreapp1.1\":[],\"netcoreapp2.0\":[],\"netcoreapp2.1\":[],\"netcoreapp2.2\":[],\"netcoreapp3.0\":[],\"netcoreapp3.1\":[],\"netstandard\":[],\"netstandard1.0\":[],\"netstandard1.1\":[],\"netstandard1.2\":[],\"netstandard1.3\":[],\"netstandard1.4\":[],\"netstandard1.5\":[],\"netstandard1.6\":[],\"netstandard2.0\":[],\"netstandard2.1\":[]},\"framework_list\":[],\"id\":\"NuGet.Build.Tasks.Pack\",\"name\":\"NuGet.Build.Tasks.Pack\",\"sha512\":\"sha512-tri6QTk5gTglivu7ltBTKKBFe+pGLDWhOJMh1umxIGoWNxo0IWXD5PxKGoIMTvt1okVtWdzafpMM0rsQLHg18w==\",\"sources\":[\"https://api.nuget.org/v3/index.json\"],\"targeting_pack_overrides\":[],\"version\":\"6.13.2\"}",
+                "{\"dependencies\":{\"net11\":[],\"net20\":[],\"net30\":[],\"net35\":[],\"net40\":[],\"net403\":[],\"net45\":[],\"net451\":[],\"net452\":[],\"net46\":[],\"net461\":[],\"net462\":[\"System.Threading.Tasks.Extensions\",\"System.ValueTuple\",\"System.Memory\"],\"net47\":[\"System.Threading.Tasks.Extensions\",\"System.ValueTuple\",\"System.Memory\"],\"net471\":[\"System.Threading.Tasks.Extensions\",\"System.ValueTuple\",\"System.Memory\"],\"net472\":[\"System.Threading.Tasks.Extensions\",\"System.ValueTuple\",\"System.Memory\"],\"net48\":[\"System.Threading.Tasks.Extensions\",\"System.ValueTuple\",\"System.Memory\"],\"net5.0\":[],\"net6.0\":[],\"net7.0\":[],\"net8.0\":[],\"net9.0\":[],\"netcoreapp1.0\":[],\"netcoreapp1.1\":[],\"netcoreapp2.0\":[],\"netcoreapp2.1\":[],\"netcoreapp2.2\":[],\"netcoreapp3.0\":[],\"netcoreapp3.1\":[],\"netstandard\":[],\"netstandard1.0\":[],\"netstandard1.1\":[],\"netstandard1.2\":[],\"netstandard1.3\":[],\"netstandard1.4\":[],\"netstandard1.5\":[],\"netstandard1.6\":[],\"netstandard2.0\":[],\"netstandard2.1\":[]},\"framework_list\":[],\"id\":\"NUnit\",\"name\":\"NUnit\",\"sha512\":\"sha512-ZmUmmYZzT2CE2ryAwOP4SJBLJutTGsPEBFAI02zA2+YLiNRIwWqKm+GAhJGVF1VVVoMrWbsVVlg8ITgTtqCRaQ==\",\"sources\":[\"https://api.nuget.org/v3/index.json\"],\"targeting_pack_overrides\":[],\"version\":\"4.3.2\"}",
+                "{\"dependencies\":{\"net11\":[],\"net20\":[],\"net30\":[],\"net35\":[],\"net40\":[],\"net403\":[],\"net45\":[],\"net451\":[],\"net452\":[],\"net46\":[],\"net461\":[],\"net462\":[\"NUnit\"],\"net47\":[\"NUnit\"],\"net471\":[\"NUnit\"],\"net472\":[\"NUnit\"],\"net48\":[\"NUnit\"],\"net5.0\":[],\"net6.0\":[\"NUnit\"],\"net7.0\":[\"NUnit\"],\"net8.0\":[\"NUnit\"],\"net9.0\":[\"NUnit\"],\"netcoreapp1.0\":[],\"netcoreapp1.1\":[],\"netcoreapp2.0\":[],\"netcoreapp2.1\":[],\"netcoreapp2.2\":[],\"netcoreapp3.0\":[],\"netcoreapp3.1\":[],\"netstandard\":[],\"netstandard1.0\":[],\"netstandard1.1\":[],\"netstandard1.2\":[],\"netstandard1.3\":[],\"netstandard1.4\":[],\"netstandard1.5\":[],\"netstandard1.6\":[],\"netstandard2.0\":[],\"netstandard2.1\":[]},\"framework_list\":[],\"id\":\"nunitlite\",\"name\":\"nunitlite\",\"sha512\":\"sha512-hPrmYz6QbQXy8eCBiN/M47N9M/i9nY7aLkUXmfMpZu6fMrnAv/B96jd7P5lOxrQ6y5MkEFwNQE/hWSQRIdMnzQ==\",\"sources\":[\"https://api.nuget.org/v3/index.json\"],\"targeting_pack_overrides\":[],\"version\":\"4.3.2\"}",
                 "{\"dependencies\":{\"net11\":[],\"net20\":[],\"net30\":[],\"net35\":[],\"net40\":[],\"net403\":[],\"net45\":[],\"net451\":[],\"net452\":[],\"net46\":[],\"net461\":[],\"net462\":[],\"net47\":[],\"net471\":[],\"net472\":[],\"net48\":[],\"net5.0\":[],\"net6.0\":[],\"net7.0\":[],\"net8.0\":[],\"net9.0\":[],\"netcoreapp1.0\":[],\"netcoreapp1.1\":[],\"netcoreapp2.0\":[],\"netcoreapp2.1\":[],\"netcoreapp2.2\":[],\"netcoreapp3.0\":[],\"netcoreapp3.1\":[],\"netstandard\":[],\"netstandard1.0\":[],\"netstandard1.1\":[],\"netstandard1.2\":[],\"netstandard1.3\":[],\"netstandard1.4\":[],\"netstandard1.5\":[],\"netstandard1.6\":[],\"netstandard2.0\":[],\"netstandard2.1\":[]},\"framework_list\":[],\"id\":\"System.Buffers\",\"name\":\"System.Buffers\",\"sha512\":\"sha512-qve/dFwECwehSWlZmpkrrlIeATCvo/Hw2koyMrUVcDBy5gXAQrnwX8pHEoqgj8DgkrWuWW1DrQbFqoMbo+Fvrg==\",\"sources\":[\"https://api.nuget.org/v3/index.json\"],\"targeting_pack_overrides\":[],\"version\":\"4.6.1\"}",
                 "{\"dependencies\":{\"net11\":[],\"net20\":[],\"net30\":[],\"net35\":[],\"net40\":[],\"net403\":[],\"net45\":[],\"net451\":[],\"net452\":[],\"net46\":[],\"net461\":[\"System.Memory\",\"System.Runtime.CompilerServices.Unsafe\"],\"net462\":[\"System.Memory\",\"System.Runtime.CompilerServices.Unsafe\"],\"net47\":[\"System.Memory\",\"System.Runtime.CompilerServices.Unsafe\"],\"net471\":[\"System.Memory\",\"System.Runtime.CompilerServices.Unsafe\"],\"net472\":[\"System.Memory\",\"System.Runtime.CompilerServices.Unsafe\"],\"net48\":[\"System.Memory\",\"System.Runtime.CompilerServices.Unsafe\"],\"net5.0\":[\"System.Memory\",\"System.Runtime.CompilerServices.Unsafe\"],\"net6.0\":[\"System.Memory\",\"System.Runtime.CompilerServices.Unsafe\"],\"net7.0\":[\"System.Memory\",\"System.Runtime.CompilerServices.Unsafe\"],\"net8.0\":[],\"net9.0\":[],\"netcoreapp1.0\":[],\"netcoreapp1.1\":[],\"netcoreapp2.0\":[\"System.Memory\",\"System.Runtime.CompilerServices.Unsafe\"],\"netcoreapp2.1\":[\"System.Memory\",\"System.Runtime.CompilerServices.Unsafe\"],\"netcoreapp2.2\":[\"System.Memory\",\"System.Runtime.CompilerServices.Unsafe\"],\"netcoreapp3.0\":[\"System.Memory\",\"System.Runtime.CompilerServices.Unsafe\"],\"netcoreapp3.1\":[\"System.Memory\",\"System.Runtime.CompilerServices.Unsafe\"],\"netstandard\":[],\"netstandard1.0\":[],\"netstandard1.1\":[],\"netstandard1.2\":[],\"netstandard1.3\":[],\"netstandard1.4\":[],\"netstandard1.5\":[],\"netstandard1.6\":[],\"netstandard2.0\":[\"System.Memory\",\"System.Runtime.CompilerServices.Unsafe\"],\"netstandard2.1\":[\"System.Memory\",\"System.Runtime.CompilerServices.Unsafe\"]},\"framework_list\":[],\"id\":\"System.Collections.Immutable\",\"name\":\"System.Collections.Immutable\",\"sha512\":\"sha512-B7ViUmGN4eg38AQa9wwvZCqWJTd9GXZuOUfcVvq9+rlPq18BlmFbgGAt9u1iHDP04fGnMv9KLsquwWA5rijvFw==\",\"sources\":[\"https://api.nuget.org/v3/index.json\"],\"targeting_pack_overrides\":[],\"version\":\"9.0.4\"}",
                 "{\"dependencies\":{\"net11\":[],\"net20\":[],\"net30\":[],\"net35\":[],\"net40\":[],\"net403\":[],\"net45\":[],\"net451\":[],\"net452\":[],\"net46\":[],\"net461\":[],\"net462\":[],\"net47\":[],\"net471\":[],\"net472\":[],\"net48\":[],\"net5.0\":[],\"net6.0\":[],\"net7.0\":[],\"net8.0\":[],\"net9.0\":[],\"netcoreapp1.0\":[],\"netcoreapp1.1\":[],\"netcoreapp2.0\":[],\"netcoreapp2.1\":[],\"netcoreapp2.2\":[],\"netcoreapp3.0\":[],\"netcoreapp3.1\":[],\"netstandard\":[],\"netstandard1.0\":[],\"netstandard1.1\":[],\"netstandard1.2\":[],\"netstandard1.3\":[],\"netstandard1.4\":[],\"netstandard1.5\":[],\"netstandard1.6\":[],\"netstandard2.0\":[],\"netstandard2.1\":[]},\"framework_list\":[],\"id\":\"System.ComponentModel.Annotations\",\"name\":\"System.ComponentModel.Annotations\",\"sha512\":\"sha512-WJqsTGaXAc55EPGjJylPFXiNPs/x1t9dklVlHlIBxUEcIxIob6sRGm9Un7TehkyEFM+vKjZd7rbwaMH/znw1PA==\",\"sources\":[\"https://api.nuget.org/v3/index.json\"],\"targeting_pack_overrides\":[],\"version\":\"5.0.0\"}",
@@ -1118,6 +1154,7 @@
               "targeting_pack_overrides": {
                 "fsharp.core|9.0.202": [],
                 "fsharp.systemtextjson|1.3.13": [],
+                "fsunit|7.0.1": [],
                 "giraffe|7.0.2": [],
                 "giraffe.viewengine|1.4.0": [],
                 "microsoft.aspnetcore|2.3.0": [],
@@ -1175,6 +1212,8 @@
                 "microsoft.net.sdk|1.0.0-alpha-20161104-2": [],
                 "microsoft.netcore.platforms|7.0.4": [],
                 "nuget.build.tasks.pack|6.13.2": [],
+                "nunit|4.3.2": [],
+                "nunitlite|4.3.2": [],
                 "system.buffers|4.6.1": [],
                 "system.collections.immutable|9.0.4": [],
                 "system.componentmodel.annotations|5.0.0": [],
@@ -1200,6 +1239,7 @@
               "framework_list": {
                 "fsharp.core|9.0.202": [],
                 "fsharp.systemtextjson|1.3.13": [],
+                "fsunit|7.0.1": [],
                 "giraffe|7.0.2": [],
                 "giraffe.viewengine|1.4.0": [],
                 "microsoft.aspnetcore|2.3.0": [],
@@ -1257,6 +1297,8 @@
                 "microsoft.net.sdk|1.0.0-alpha-20161104-2": [],
                 "microsoft.netcore.platforms|7.0.4": [],
                 "nuget.build.tasks.pack|6.13.2": [],
+                "nunit|4.3.2": [],
+                "nunitlite|4.3.2": [],
                 "system.buffers|4.6.1": [],
                 "system.collections.immutable|9.0.4": [],
                 "system.componentmodel.annotations|5.0.0": [],
@@ -2355,6 +2397,122 @@
                 "system.security.permissions|6.0.0": [],
                 "system.text.json|9.0.0": [],
                 "system.windows.extensions|6.0.0": []
+              }
+            }
+          }
+        },
+        "recordedRepoMappingEntries": [
+          [
+            "aspect_bazel_lib+",
+            "bazel_skylib",
+            "bazel_skylib+"
+          ],
+          [
+            "platforms",
+            "host_platform",
+            "platforms+host_platform+host_platform"
+          ],
+          [
+            "rules_dotnet+",
+            "aspect_bazel_lib",
+            "aspect_bazel_lib+"
+          ],
+          [
+            "rules_dotnet+",
+            "bazel_skylib",
+            "bazel_skylib+"
+          ],
+          [
+            "rules_dotnet+",
+            "bazel_tools",
+            "bazel_tools"
+          ],
+          [
+            "rules_dotnet+",
+            "platforms",
+            "platforms"
+          ],
+          [
+            "rules_dotnet+",
+            "rules_dotnet",
+            "rules_dotnet+"
+          ]
+        ]
+      }
+    },
+    "@@rules_dotnet+//dotnet:paket.rules_dotnet_nuget_packages_extension.bzl%rules_dotnet_nuget_packages_extension": {
+      "general": {
+        "bzlTransitiveDigest": "PHA/xYurGDInCY7I/+G9GwxwArREOBnAlDTvlq/uMBg=",
+        "usagesDigest": "5+SDl/3kc9bVhpmXUSDuQFYEORbUjCq2+hDEZ1jF7Zk=",
+        "recordedFileInputs": {},
+        "recordedDirentsInputs": {},
+        "envVariables": {},
+        "generatedRepoSpecs": {
+          "nuget.microsoft.netcore.platforms.v6.0.5": {
+            "repoRuleId": "@@rules_dotnet+//dotnet/private/rules/nuget:nuget_archive.bzl%nuget_archive",
+            "attributes": {
+              "sources": [
+                "https://api.nuget.org/v3/index.json"
+              ],
+              "id": "microsoft.netcore.platforms",
+              "version": "6.0.5",
+              "sha512": "sha512-GTMT/dgCRBCRUj11ssZ8K1FJm6Md+C/tSJl8I7YjxOFwSvopaIneV32y1VlnBTI4wy1SwueI7ou2sVfHkWENrA=="
+            }
+          },
+          "nuget.netstandard.library.v2.0.3": {
+            "repoRuleId": "@@rules_dotnet+//dotnet/private/rules/nuget:nuget_archive.bzl%nuget_archive",
+            "attributes": {
+              "sources": [
+                "https://api.nuget.org/v3/index.json"
+              ],
+              "id": "netstandard.library",
+              "version": "2.0.3",
+              "sha512": "sha512-548M6mnBSJWxsIlkQHfbzoYxpiYFXZZSL00p4GHYv8PkiqFBnnT68mW5mGEsA/ch9fDO9GkPgkFQpWiXZN7mAQ=="
+            }
+          },
+          "nuget.nunit.v3.14.0": {
+            "repoRuleId": "@@rules_dotnet+//dotnet/private/rules/nuget:nuget_archive.bzl%nuget_archive",
+            "attributes": {
+              "sources": [
+                "https://api.nuget.org/v3/index.json"
+              ],
+              "id": "nunit",
+              "version": "3.14.0",
+              "sha512": "sha512-XXEZJblHyeSp9T9rXXabxKcC79crz/a0/k/lGnJFRKUmbQIxf9tf5eMS+STOvjFUnl7rLFeBycLzXD5OMa40hA=="
+            }
+          },
+          "nuget.nunitlite.v3.14.0": {
+            "repoRuleId": "@@rules_dotnet+//dotnet/private/rules/nuget:nuget_archive.bzl%nuget_archive",
+            "attributes": {
+              "sources": [
+                "https://api.nuget.org/v3/index.json"
+              ],
+              "id": "nunitlite",
+              "version": "3.14.0",
+              "sha512": "sha512-0TEZNUokBNFu03MYqaFdaWQrYNRwuLI5k1IR1ly/p3DUVLq48a+Ig5uVWjI6t1OKOkrS/cIKkl+FkQE+2nRboQ=="
+            }
+          },
+          "paket.rules_dotnet_nuget_packages": {
+            "repoRuleId": "@@rules_dotnet+//dotnet/private/rules/nuget:nuget_repo.bzl%_nuget_repo",
+            "attributes": {
+              "repo_name": "paket.rules_dotnet_nuget_packages",
+              "packages": [
+                "{\"dependencies\":{\"net11\":[],\"net20\":[],\"net30\":[],\"net35\":[],\"net40\":[],\"net403\":[],\"net45\":[],\"net451\":[],\"net452\":[],\"net46\":[],\"net461\":[],\"net462\":[],\"net47\":[],\"net471\":[],\"net472\":[],\"net48\":[],\"net5.0\":[],\"net6.0\":[],\"net7.0\":[],\"net8.0\":[],\"net9.0\":[],\"netcoreapp1.0\":[],\"netcoreapp1.1\":[],\"netcoreapp2.0\":[],\"netcoreapp2.1\":[],\"netcoreapp2.2\":[],\"netcoreapp3.0\":[],\"netcoreapp3.1\":[],\"netstandard\":[],\"netstandard1.0\":[],\"netstandard1.1\":[],\"netstandard1.2\":[],\"netstandard1.3\":[],\"netstandard1.4\":[],\"netstandard1.5\":[],\"netstandard1.6\":[],\"netstandard2.0\":[],\"netstandard2.1\":[]},\"framework_list\":[],\"id\":\"Microsoft.NETCore.Platforms\",\"name\":\"Microsoft.NETCore.Platforms\",\"sha512\":\"sha512-GTMT/dgCRBCRUj11ssZ8K1FJm6Md+C/tSJl8I7YjxOFwSvopaIneV32y1VlnBTI4wy1SwueI7ou2sVfHkWENrA==\",\"sources\":[\"https://api.nuget.org/v3/index.json\"],\"targeting_pack_overrides\":[],\"version\":\"6.0.5\"}",
+                "{\"dependencies\":{\"net11\":[],\"net20\":[],\"net30\":[],\"net35\":[],\"net40\":[],\"net403\":[],\"net45\":[\"Microsoft.NETCore.Platforms\"],\"net451\":[\"Microsoft.NETCore.Platforms\"],\"net452\":[\"Microsoft.NETCore.Platforms\"],\"net46\":[\"Microsoft.NETCore.Platforms\"],\"net461\":[\"Microsoft.NETCore.Platforms\"],\"net462\":[\"Microsoft.NETCore.Platforms\"],\"net47\":[\"Microsoft.NETCore.Platforms\"],\"net471\":[\"Microsoft.NETCore.Platforms\"],\"net472\":[\"Microsoft.NETCore.Platforms\"],\"net48\":[\"Microsoft.NETCore.Platforms\"],\"net5.0\":[\"Microsoft.NETCore.Platforms\"],\"net6.0\":[\"Microsoft.NETCore.Platforms\"],\"net7.0\":[\"Microsoft.NETCore.Platforms\"],\"net8.0\":[\"Microsoft.NETCore.Platforms\"],\"net9.0\":[\"Microsoft.NETCore.Platforms\"],\"netcoreapp1.0\":[\"Microsoft.NETCore.Platforms\"],\"netcoreapp1.1\":[\"Microsoft.NETCore.Platforms\"],\"netcoreapp2.0\":[\"Microsoft.NETCore.Platforms\"],\"netcoreapp2.1\":[\"Microsoft.NETCore.Platforms\"],\"netcoreapp2.2\":[\"Microsoft.NETCore.Platforms\"],\"netcoreapp3.0\":[\"Microsoft.NETCore.Platforms\"],\"netcoreapp3.1\":[\"Microsoft.NETCore.Platforms\"],\"netstandard\":[],\"netstandard1.0\":[\"Microsoft.NETCore.Platforms\"],\"netstandard1.1\":[\"Microsoft.NETCore.Platforms\"],\"netstandard1.2\":[\"Microsoft.NETCore.Platforms\"],\"netstandard1.3\":[\"Microsoft.NETCore.Platforms\"],\"netstandard1.4\":[\"Microsoft.NETCore.Platforms\"],\"netstandard1.5\":[\"Microsoft.NETCore.Platforms\"],\"netstandard1.6\":[\"Microsoft.NETCore.Platforms\"],\"netstandard2.0\":[\"Microsoft.NETCore.Platforms\"],\"netstandard2.1\":[\"Microsoft.NETCore.Platforms\"]},\"framework_list\":[],\"id\":\"NETStandard.Library\",\"name\":\"NETStandard.Library\",\"sha512\":\"sha512-548M6mnBSJWxsIlkQHfbzoYxpiYFXZZSL00p4GHYv8PkiqFBnnT68mW5mGEsA/ch9fDO9GkPgkFQpWiXZN7mAQ==\",\"sources\":[\"https://api.nuget.org/v3/index.json\"],\"targeting_pack_overrides\":[],\"version\":\"2.0.3\"}",
+                "{\"dependencies\":{\"net11\":[],\"net20\":[],\"net30\":[],\"net35\":[],\"net40\":[],\"net403\":[],\"net45\":[],\"net451\":[],\"net452\":[],\"net46\":[],\"net461\":[],\"net462\":[],\"net47\":[],\"net471\":[],\"net472\":[],\"net48\":[],\"net5.0\":[\"NETStandard.Library\"],\"net6.0\":[\"NETStandard.Library\"],\"net7.0\":[\"NETStandard.Library\"],\"net8.0\":[\"NETStandard.Library\"],\"net9.0\":[\"NETStandard.Library\"],\"netcoreapp1.0\":[],\"netcoreapp1.1\":[],\"netcoreapp2.0\":[\"NETStandard.Library\"],\"netcoreapp2.1\":[\"NETStandard.Library\"],\"netcoreapp2.2\":[\"NETStandard.Library\"],\"netcoreapp3.0\":[\"NETStandard.Library\"],\"netcoreapp3.1\":[\"NETStandard.Library\"],\"netstandard\":[],\"netstandard1.0\":[],\"netstandard1.1\":[],\"netstandard1.2\":[],\"netstandard1.3\":[],\"netstandard1.4\":[],\"netstandard1.5\":[],\"netstandard1.6\":[],\"netstandard2.0\":[\"NETStandard.Library\"],\"netstandard2.1\":[\"NETStandard.Library\"]},\"framework_list\":[],\"id\":\"NUnit\",\"name\":\"NUnit\",\"sha512\":\"sha512-XXEZJblHyeSp9T9rXXabxKcC79crz/a0/k/lGnJFRKUmbQIxf9tf5eMS+STOvjFUnl7rLFeBycLzXD5OMa40hA==\",\"sources\":[\"https://api.nuget.org/v3/index.json\"],\"targeting_pack_overrides\":[],\"version\":\"3.14.0\"}",
+                "{\"dependencies\":{\"net11\":[],\"net20\":[],\"net30\":[],\"net35\":[\"NUnit\"],\"net40\":[\"NUnit\"],\"net403\":[\"NUnit\"],\"net45\":[\"NUnit\"],\"net451\":[\"NUnit\"],\"net452\":[\"NUnit\"],\"net46\":[\"NUnit\"],\"net461\":[\"NUnit\"],\"net462\":[\"NUnit\"],\"net47\":[\"NUnit\"],\"net471\":[\"NUnit\"],\"net472\":[\"NUnit\"],\"net48\":[\"NUnit\"],\"net5.0\":[\"NUnit\"],\"net6.0\":[\"NUnit\"],\"net7.0\":[\"NUnit\"],\"net8.0\":[\"NUnit\"],\"net9.0\":[\"NUnit\"],\"netcoreapp1.0\":[],\"netcoreapp1.1\":[],\"netcoreapp2.0\":[\"NUnit\",\"NETStandard.Library\"],\"netcoreapp2.1\":[\"NUnit\",\"NETStandard.Library\"],\"netcoreapp2.2\":[\"NUnit\",\"NETStandard.Library\"],\"netcoreapp3.0\":[\"NUnit\",\"NETStandard.Library\"],\"netcoreapp3.1\":[\"NUnit\"],\"netstandard\":[],\"netstandard1.0\":[],\"netstandard1.1\":[],\"netstandard1.2\":[],\"netstandard1.3\":[],\"netstandard1.4\":[],\"netstandard1.5\":[],\"netstandard1.6\":[],\"netstandard2.0\":[\"NUnit\",\"NETStandard.Library\"],\"netstandard2.1\":[\"NUnit\",\"NETStandard.Library\"]},\"framework_list\":[],\"id\":\"NUnitLite\",\"name\":\"NUnitLite\",\"sha512\":\"sha512-0TEZNUokBNFu03MYqaFdaWQrYNRwuLI5k1IR1ly/p3DUVLq48a+Ig5uVWjI6t1OKOkrS/cIKkl+FkQE+2nRboQ==\",\"sources\":[\"https://api.nuget.org/v3/index.json\"],\"targeting_pack_overrides\":[],\"version\":\"3.14.0\"}"
+              ],
+              "targeting_pack_overrides": {
+                "microsoft.netcore.platforms|6.0.5": [],
+                "netstandard.library|2.0.3": [],
+                "nunit|3.14.0": [],
+                "nunitlite|3.14.0": []
+              },
+              "framework_list": {
+                "microsoft.netcore.platforms|6.0.5": [],
+                "netstandard.library|2.0.3": [],
+                "nunit|3.14.0": [],
+                "nunitlite|3.14.0": []
               }
             }
           }
