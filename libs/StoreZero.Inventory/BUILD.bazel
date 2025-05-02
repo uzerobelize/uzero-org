@@ -1,0 +1,17 @@
+load("@rules_dotnet//dotnet:defs.bzl", "fsharp_library", "fsharp_binary")
+
+
+fsharp_library(
+    name = "StoreZero.Inventory",
+    target_frameworks = ["net9.0"],
+
+    srcs = [
+      "src/StoreZero.fs",
+      "src/Domain/ValueObject.fs",
+      "src/Domain/Entity/Product.fs",
+    ],
+
+    deps = [
+        "@paket.main//fsharp.core",
+    ],
+)

@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Core Domain -->
+    <!-- <Compile Include="src/Domain/StoreZero.Inventory.Domain.fs" /> -->
+    <!-- <Compile Include="src/Domain/Entity/Product.fs" /> -->
+    <!-- <Compile Include="src/Domain/ValueObject.fs" /> -->
+  </ItemGroup>
+</Project>
