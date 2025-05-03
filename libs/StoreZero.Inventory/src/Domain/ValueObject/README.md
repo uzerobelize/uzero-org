@@ -36,11 +36,72 @@ Attributes of ValidatedProduct:
 
 ### Identifiers (Internal & External)
 
-*   **ProductId (`ProductId.T` Value Object):**
-    *   **Description:** Unique Identifier for the core product concept/aggregate root (internal system ID). Serves as the anchor for the aggregate.
-    *   **Purpose:** Aggregate Identity, Uniqueness, Referenceability, Data Integrity, System Operations, Lifecycle Tracking.
-    *   **Placement:** Root identifier for the `Product` Aggregate. Referenced by `ProductVariant`s.
-    *   **Constraints:** Must be a valid, non-empty `System.Guid`. Immutable. System-generated. Uniqueness across all products enforced by system/DB. Mandatory.
+*   **Conceptual Field Name:** ProductId (or ProductID)
+
+    **Purpose (within the Domain Model):**
+    Serves as the unique, immutable identity for the Product Aggregate Root. It distinguishes one core product concept (e.g., "BrandX Model Y Running Shoe") from all others within the system, regardless of its specific variations. This ID is the anchor for the aggregate and guarantees its continuity and referenceability throughout its lifecycle. It's a fundamental part of the Ubiquitous Language ("Which ProductId does this SKU belong to?", "Look up ProductId `xxxxxxxx-xxxx-...`"). Within DDD, the ProductId itself is implemented as a Value Object to ensure validity, type safety, and clear intent.
+
+    **Importance (in DDD):**
+    The ProductId is paramount for:
+    *   **Aggregate Identity:** Provides the stable identity required for an Aggregate Root.
+    *   **Uniqueness:** Guarantees each distinct product concept has one identifier within the Bounded Context.
+    *   **Referenceability:** Allows other Aggregates (e.g., Order) or Entities (e.g., Sku, ProductVariant) to reliably reference the specific Product Aggregate.
+    *   **Data Integrity:** Acts as the conceptual primary key.
+    *   **System Operations:** Enables unambiguous lookup, retrieval, update, and deletion.
+    *   **Lifecycle Tracking:** Provides a constant identifier despite changes in attributes or variants.
+
+    **Placement within the Domain Model:**
+    The `ProductId` is the root identifier for the `Product` Aggregate. Entities closely related to the Product, such as `ProductVariant` and `Sku`, will be modeled as separate Entities (potentially within the same Aggregate or a different one, depending on consistency boundaries) and will hold a reference to the `ProductId`. These Entities will have their own unique identifiers (e.g., `SkuId`).
+
+    **Implementation Concept (DDD Value Object Pattern):**
+    Conceptually, `ProductId` is implemented as a custom Value Object type. This type would:
+    *   Encapsulate the actual identifier value, which will be a **GUID/UUID**. (Consider using UUIDv7 if feasible for database index performance benefits).
+    *   Have its creation controlled via static factory methods:
+        *   `ProductId.create()`: Generates a new, unique ProductId (using a UUID generator).
+        *   `ProductId.parse(Guid existingGuid)`: Creates a ProductId instance from a pre-existing, validated GUID. Used in specific infrastructure scenarios (e.g., repository reconstitution, data migration).
+        *   `ProductId.parse(string guidString)`: Creates a ProductId instance by parsing a string representation, ensuring it's a valid GUID format.
+    *   These factory methods enforce validity constraints (e.g., ensuring a GUID is not the empty GUID, ensuring a parsed string is a valid GUID format and matches the canonical representation).
+    *   Implement value-based equality (comparing the underlying GUIDs). Override `Equals()` and `GetHashCode()` (or use language features like C# records or Kotlin data classes).
+    *   Ensure the Value Object instance itself is **immutable** (e.g., using `readonly`/`final` fields and no setters).
+    *   Plan for serialization/deserialization, typically mapping to the underlying GUID string representation. Custom converters might be needed depending on the framework.
+    *   Using a dedicated `ProductId` type prevents accidental misuse (e.g., passing a `CategoryId` where a `ProductId` is expected) and makes the domain model more expressive.
+
+    **Constraints (Enforced Primarily by the Domain Model Type & Aggregate):**
+
+    *   **Uniqueness (System-Wide):**
+        *   *Constraint:* The value encapsulated by the `ProductId` Value Object must be unique across all Product aggregates. **Guaranteed primarily by the chosen GUID/UUID generation algorithm** (with negligible collision probability) and ultimately enforced by persistence layer constraints (e.g., database primary key).
+        *   *Rationale:* Core requirement of identity. Prevents ambiguity.
+        *   *Enforcement (DDD):* While the VO itself doesn't know about others, uniqueness is enforced during aggregate creation. The `ProductId.create()` method uses a reliable GUID generator. Database constraints provide the persistence-level guarantee. Application services handle uniqueness checks only if absolutely necessary (e.g., during imports where external IDs *might* clash, though unlikely with GUIDs).
+
+    *   **Mandatory / Non-Null / Non-Empty:**
+        *   *Constraint:* Every instance of a `Product` Aggregate must possess a `ProductId`. The identifier cannot be null or undefined, **nor can it be the 'empty' GUID (`00000000-0000-0000-0000-000000000000`)**.
+        *   *Rationale:* An Aggregate Root cannot exist without a valid identity.
+        *   *Enforcement (DDD):* The `ProductId` field within the `Product` Aggregate Root uses the non-nullable `ProductId` custom type. The Aggregate's creation logic ensures an ID is assigned immediately using a valid `ProductId` instance (typically via `ProductId.create()`). **The `ProductId` factory methods (`create`, `parse`) validate against the empty GUID.**
+
+    *   **Immutability (CRITICAL Domain Invariant):**
+        *   *Constraint:* Once a `ProductId` is assigned to a `Product` Aggregate instance upon its creation, it must **never change** for the entire lifetime of that conceptual product.
+        *   *Rationale:* The identity *is* the product from the system's perspective. Changing it breaks continuity and references.
+        *   *Enforcement (DDD):* Enforced by the `Product` Aggregate Root and the `ProductId` Value Object. The ID is set only during creation (via constructor or factory), and no methods allow its modification. The Value Object itself is immutable **through language constructs (e.g., `readonly`/`final` fields and lack of setter methods)**.
+
+    *   **Data Type & Format Consistency:**
+        *   *Constraint:* All `ProductId` values must encapsulate a valid **GUID/UUID according to RFC 4122**. **A consistent canonical string representation (e.g., lowercase with hyphens: `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`) should be used internally and enforced during parsing from string.**
+        *   *Rationale:* Ensures predictability, type safety, and proper functioning.
+        *   *Enforcement (DDD):* Enforced by the `ProductId` Value Object's definition and its factory/parsing methods' validation logic.
+
+    *   **System Generated (Primary Path):**
+        *   *Constraint:* The identifier value **should normally be generated by the system** using the `ProductId.create()` factory method. **Creation from existing values using `parse()` methods should be reserved for specific, controlled scenarios** like data migration, repository reconstitution, or integration with systems that provide pre-existing IDs.
+        *   *Rationale:* Guarantees uniqueness (for GUIDs), decouples the domain identity from potentially volatile external codes, reduces human error.
+        *   *Enforcement (DDD):* The default `Product` Aggregate creation logic calls `ProductId.create()`. Infrastructure code (repositories, migrations, specific integrations) might use `ProductId.parse()` after validating the source ID.
+
+    **Human Readability:**
+    *   While `ProductId` (as a GUID) provides robust uniqueness, it's not inherently human-readable. If frequent human interaction (e.g., support, administration) requires a simpler identifier, consider adding a separate field (e.g., `ProductCode`, `InternalReference`) directly to the `Product` Aggregate. This field is for display or search purposes and is *not* the aggregate's primary identity (`ProductId`).
+
+    **Relationship to Other Domain Concepts:**
+    *   Identifies the `Product` Aggregate Root.
+    *   Referenced by related **Entities like `ProductVariant` and `Sku`** (which have their own identities, e.g., `SkuId`) to link back to the parent Product concept.
+    *   Referenced by other Aggregates (e.g., `OrderLine` references the `ProductId` of the item ordered) or external systems.
+    *   **Distinct from `SkuId`**: `SkuId` (likely a string-based Value Object identifying the `Sku` Entity) identifies a specific, sellable variant/stock-keeping unit, while `ProductId` identifies the overall product concept that the SKU belongs to. There's typically a many-to-one relationship (many SKUs per ProductId).
+
 *   **Sku (`Sku.T` Value Object):**
     *   **Description:** Stock Keeping Unit - the unique internal identifier for a specific, sellable variant used for tracking inventory.
     *   **Purpose:** Granular Inventory Tracking, Accurate Order Fulfillment, Variant-Specific Pricing/Promotions, Sales Analysis, Disambiguation.
