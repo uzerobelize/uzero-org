@@ -21,11 +21,12 @@ fsharp_library(
     internals_visible_to = ["StoreZero.Inventory.Domain.Product.Tests"],
     srcs = [
       "src/StoreZero.fs",
+      "src/Domain/ValueObject.fs",
       "src/Domain/Entity/Product.fs",
     ],
 
     deps = [
-        "@paket.main//fsharp.core",
+      "@paket.main//fsharp.core",
     ],
 )
 
@@ -66,7 +67,6 @@ fsharp_nunit_test(
 fsharp_nunit_test(
     name = "StoreZero.Inventory.Domain.Product.Tests",
     srcs = [
-      "test/StoreZero.Inventory.Tests/Domain/ValueObjectTest.fs",
       "test/StoreZero.Inventory.Tests/Domain/Entity/ProductTest.fs",
     ],
 

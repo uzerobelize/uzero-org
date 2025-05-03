@@ -9,78 +9,116 @@ open StoreZero.Inventory.Domain.ValueObject
 
 // --- Helper module for combining hash codes ---
 module HashHelpers =
-    let combineHashCodes (hashCodes: int array) : int =
-        let seed = 48271 // A prime number
-        let mutable hash = seed
-        for h in hashCodes do
-            hash <- (hash * 397) + h // Another prime number
-        hash
+  let combineHashCodes (hashCodes: int array) : int =
+    let seed = 48271 // A prime number
+    let mutable hash = seed
+    for h in hashCodes do
+        hash <- (hash * 397) + h // Another prime number
+    hash
 
-    // Helper to hash a list of items that support GetHashCode
-    let hashList (items: System.Collections.Generic.List<'T>) : int =
-        let seed = 23 // Another prime number
-        let mutable hash = seed
-        for item in items do
-            hash <- (hash * 31) + item.GetHashCode() // Another prime number
-        hash
+  // Helper to hash a list of items that support GetHashCode
+  let hashList (items: System.Collections.Generic.List<'T>) : int =
+    let seed = 23 // Another prime number
+    let mutable hash = seed
+    for item in items do
+        hash <- (hash * 31) + item.GetHashCode() // Another prime number
+    hash
 
 
 // Module encapsulating the Product domain types and validation logic.
 module Product =
 
-  // Represents a product with raw, unvalidated data.
+  // Represents a product with raw, unvalidated data, typically from an
+  // external source. Fields here are strings or other basic types as the data
+  // hasn't been confirmed yet.
   [<CLIMutable>]
   [<CustomEquality>]
   [<NoComparison>]
   type Unvalidated = {
-    // A temporary identifier or external reference before validation.
+    // A temporary identifier or external reference used during the
+    // import/validation process.
     TemporaryId : System.Guid
 
+    // Raw string value for the Stock Keeping Unit.
     RawSku : string
+    // Raw string value for the Barcode or UPC.
     RawBarcodeUpc : string
+    // Raw string value for the product's name.
     RawName : string
+    // Raw string value for the product's short description.
     RawShortDescription : string
+    // Raw string value for the product's long description.
     RawLongDescription : string
+    // Raw string value for the product's brand name.
     RawBrand : string
+    // Raw string value for the product's manufacturer name.
     RawManufacturer : string
+    // Raw string value for the product's primary category.
     RawCategory : string
+    // Raw string value for the product's subcategory.
     RawSubCategory : string
+    // Raw string value representing the hierarchical path in the product
+    // taxonomy.
     RawTaxonomyPath : string
+    // Raw string value for the unit of measure (e.g., "kg", "liter").
     RawUnitOfMeasure : string
+    // Raw string value for the quantity represented by the unit (e.g., "1",
+    // "500").
     RawUnitValue : string
+    // Raw string indicating if the product has variable weight (e.g., "true",
+    // "false", "yes", "no").
     RawIsVariableWeight : string
+    // Raw string value for the average weight per unit, for variable weight
+    // items.
     RawAverageWeightPerUnit : string
+    // Raw string value describing the storage requirements (e.g.,
+    // "Refrigerated").
     RawStorageRequirements : string
+    // Raw string indicating if the product is perishable (e.g., "true",
+    // "false").
     RawIsPerishable : string
+    // Raw string value for the tax classification.
     RawTaxClass : string
+    // Raw string indicating if the product is currently sellable online (e.g.,
+    // "true", "false").
     RawIsSellable : string
+    // Raw string indicating if the product is active in the catalog (e.g.,
+    // "true", "false").
     RawIsActive : string
+    // Raw string value for the primary image URL.
     RawImageUrl : string
+    // Raw string value for the thumbnail image URL.
     RawThumbnailUrl : string
+    // Raw string value for nutritional information.
     NutritionalInformation : string
+    // Raw string value for the list of ingredients.
     Ingredients : string
+    // Raw string value for the list of common allergens.
     Allergens : string
+    // Raw string value for the country of origin.
     RawCountryOfOrigin : string
+    // Timestamp when the unvalidated product record was created.
     CreatedAt : System.DateTimeOffset
   }
   with
     override this.Equals(other: obj) : bool =
       match other with
       | :? Unvalidated as otherProduct ->
-          // Unvalidated products are considered equal if their TemporaryId is the same
           this.TemporaryId = otherProduct.TemporaryId
       | _ -> false
 
     override this.GetHashCode() : int =
-      // Hash code based on the field used for equality
       this.TemporaryId.GetHashCode()
 
 
-  // Represents a specific validation error.
+  // Represents a specific validation error encountered during the validation
+  // workflow.
   [<CustomEquality>]
   [<NoComparison>]
   type ValidationError = {
+    // The name of the field that failed validation.
     FieldName : string
+    // A descriptive message explaining the validation error.
     ErrorMessage : string
   }
   with
@@ -98,92 +136,79 @@ module Product =
       |]
 
   // Represents a product that has successfully passed the validation workflow.
-  // All data here is considered clean and correctly formatted according to business rules.
+  // All data here is considered clean and correctly formatted according to
+  // business rules, using Value Objects where appropriate to ensure data
+  // integrity.
   [<CLIMutable>]
   [<CustomEquality>]
   [<NoComparison>]
   type Validated = {
-    // Unique Identifier for the product (internal system ID).
+    // Unique Identifier for the product (internal system ID), represented by a
+    // ProductId Value Object.
     ProductId : ProductId.T
-
-    // Stock Keeping Unit - a unique code used for tracking inventory.
+    // Stock Keeping Unit, represented by a Sku Value Object.
     Sku : Sku.T
-
-    // Universal Product Code or EAN - standard external identifier found on packaging.
+    // Universal Product Code or EAN, represented by a BarcodeUpc Value Object.
     BarcodeUpc : BarcodeUpc.T
-
-    // Full product name as displayed to customers.
+    // Full product name, represented by a ProductName Value Object.
     Name : ProductName.T
-
-    // Brief summary of the product.
+    // Brief summary of the product, represented by a ProductDescription Value
+    // Object.
     ShortDescription : ProductDescription.T
-
-    // Detailed description, ingredients, usage instructions, etc.
+    // Detailed description, ingredients, usage instructions, etc., represented
+    // by a ProductDescription Value Object.
     LongDescription : ProductDescription.T
-
-    // The brand of the product.
+    // The brand of the product, represented by a BrandName Value Object.
     Brand : BrandName.T
-
-    // The manufacturer of the product (could be different from the brand).
+    // The manufacturer of the product, represented by a ManufacturerName Value
+    // Object.
     Manufacturer : ManufacturerName.T
-
-    // Primary category of the product (e.g., "Dairy", "Produce").
+    // Primary category of the product, represented by a ProductCategory Value
+    // Object.
     Category : ProductCategory.T
-
     // More specific categorization (e.g., "Milk", "Fresh Vegetables").
     SubCategory : string
-
-    // Hierarchical classification for navigation (e.g., "Groceries -> Dairy -> Milk").
+    // Hierarchical classification for navigation (e.g., "Groceries -> Dairy
+    // -> Milk").
     TaxonomyPath : string
-
-    // Unit of Measure (e.g., "kg", "liter", "piece", "bunch", "pack").
+    // Unit of Measure, represented by a UnitOfMeasure Value Object.
     UnitOfMeasure : UnitOfMeasure.T
-
-    // The quantity represented by the unit (e.g., 1 for 1kg, 500 for 500ml).
+    // The quantity represented by the unit, represented by a UnitValue Value
+    // Object.
     UnitValue : UnitValue.T
-
-    // Indicates if the final weight/price is determined at fulfillment (like loose produce).
+    // Indicates if the final weight/price is determined at fulfillment (like
+    // loose produce).
     IsVariableWeight : bool
-
-    // For variable weight items, an estimate for calculating approximate order totals.
+    // For variable weight items, an estimate for calculating approximate order
+    // totals, represented by a Weight Value Object.
     AverageWeightPerUnit : Weight.T
-
     // Storage requirements (e.g., "Refrigerated", "Frozen", "Pantry").
     StorageRequirements : string
-
-    // Indicates if the product has an expiry date and requires Lot/Batch tracking.
+    // Indicates if the product has an expiry date and requires Lot/Batch
+    // tracking.
     IsPerishable : bool
-
     // For calculating applicable taxes.
     TaxClass : string
-
     // Indicates if the product is currently available for sale online.
     IsSellable : bool
-
     // Indicates if the product is an active part of the catalog.
     IsActive : bool
-
-    // URL for the primary product image.
+    // URL for the primary product image, represented by an ImageUrl Value
+    // Object.
     ImageUrl : ImageUrl.T
-
-    // URL for a smaller image.
+    // URL for a smaller image, represented by an ImageUrl Value Object.
     ThumbnailUrl : ImageUrl.T
-
     // Nutritional information (can be structured data or text).
     NutritionalInformation : string
-
-    // Raw ingredients string.
+    // List of ingredients.
     Ingredients : string
-
     // List of common allergens present.
     Allergens : string
-
-    // Country of origin for the product.
+    // Country of origin for the product, represented by a CountryName Value
+    // Object.
     CountryOfOrigin : CountryName.T
-
     // Timestamp when the product record was created.
     CreatedAt : System.DateTimeOffset
-
     // Timestamp when the product record was last updated.
     UpdatedAt : System.DateTimeOffset
   }
@@ -191,10 +216,8 @@ module Product =
     override this.Equals(other: obj) : bool =
       match other with
       | :? Validated as otherProduct ->
-          // Validated products are considered equal if their ProductId is the same.
           this.ProductId.Equals(otherProduct.ProductId)
       | _ -> false
 
     override this.GetHashCode() : int =
-      // Hash code based on the field used for equality
       this.ProductId.GetHashCode()

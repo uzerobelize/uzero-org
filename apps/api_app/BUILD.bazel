@@ -20,7 +20,7 @@ fsharp_library(
 )
 
 fsharp_binary(
-    name = "app",
+    name = "api_app",
     target_frameworks = ["net9.0"],
     project_sdk = "web",
 
@@ -30,6 +30,7 @@ fsharp_binary(
     deps = [
         ":lib",
         "@paket.main//fsharp.core",
+        "@paket.main//giraffe",
         "@paket.main//microsoft.aspnetcore",
     ],
 )
