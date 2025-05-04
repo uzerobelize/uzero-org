@@ -21,7 +21,7 @@ Within the Inventory domain, Value Objects typically represent concepts such as:
 *   Unique identifiers for sellable units (`Sku`)
 *   Quantities and measurements (`Quantity`, `Weight`, `Dimensions`, `UnitOfMeasure`, `UnitValue`)
 *   Specific status flags with domain meaning (`StorageRequirement`, `IsPerishable`, `TaxClass`)
-*   Standardized external codes (`BarcodeUpc`)
+*   Standardized external codes (`Gtin`)
 *   Timestamp markers (`CreatedAt`, `UpdatedAt`)
 *   Domain-specific codes or references (`CountryOfOrigin`, `BrandId`, `ManufacturerId`, `CategoryId`, `DistributorId`)
 
@@ -107,11 +107,91 @@ Attributes of ValidatedProduct:
     *   **Purpose:** Granular Inventory Tracking, Accurate Order Fulfillment, Variant-Specific Pricing/Promotions, Sales Analysis, Disambiguation.
     *   **Placement:** `ProductVariant` Aggregate (identifies the specific variant).
     *   **Constraints:** Must not be null or whitespace. Must be between 8 and 15 characters long (configurable). Value is treated as case-insensitive (typically stored uppercase). Specific character format rules enforced by VO factory. Uniqueness across all active variants enforced by system/DB. Mandatory. Immutable.
-*   **BarcodeUpc (`BarcodeUpc.T` Value Object):**
-    *   **Description:** Standardized 12-digit Universal Product Code or EAN (external identifier, often found on packaging).
-    *   **Purpose:** Retail POS scanning, Inventory Receiving, Data Integration (marketplaces), Supply Chain Tracking, Compliance.
-    *   **Placement:** `ProductVariant` Aggregate (as variants can sometimes have unique UPCs).
-    *   **Constraints:** Optional (nullable). If present: must be exactly 12 digits, numeric only, preserve leading zeros (stored as string). Check digit validation is highly recommended within the VO factory. Immutable. Should generally not identify two different base products.
+*   **Conceptual Module Name:** `Gtin`
+
+    **2. Purpose (within the Domain Model):**
+    This concept represents standardized Global Trade Item Numbers (GTINs), specifically supporting the 12-digit (GTIN-12 / UPC-A) and 13-digit (GTIN-13 / EAN-13) formats. These are assigned by manufacturers to identify specific trade items globally. It serves as a recognized identifier for retail point-of-sale scanning, inventory receiving, supply chain tracking, and integration with external marketplaces. It's part of the Ubiquitous Language related to external product identification ("Scan the GTIN/UPC/EAN," "Match products by GTIN," "Marketplace requires a valid GTIN"). Modeled as a Value Object encapsulating structure, validation rules, and specific format (GTIN-12 or GTIN-13).
+
+    **3. Importance (in DDD):**
+    Modeling `Gtin` as a distinct Value Object provides:
+    *   **Validity & Standardization:** Ensures only syntactically valid GTIN-12 or GTIN-13 numeric strings, including mandatory check digit validation, are represented. Prevents storage of incorrectly formatted or nonsensical codes.
+    *   **Clarity & Intent:** Using a dedicated `Gtin.T` type clearly signals its purpose and distinguishes it from internal identifiers (Sku, ProductId) or raw strings. The DU structure further clarifies the *specific* GTIN format.
+    *   **Consistency:** Guarantees GTINs are handled and validated uniformly. Avoids issues like accidental truncation of leading zeros.
+    *   **Encapsulation:** Groups the data (the numeric code string) and its specific validation logic (length, numeric, check digit algorithm) together within the `Gtin` module.
+    *   **Reduced Primitive Obsession:** Avoids using generic strings for a concept with specific, globally defined structures and meanings.
+
+    **4. Placement within the Domain Model:**
+    *   The `Gtin.T` Value Object typically belongs on the `ProductVariant` (or equivalent Aggregate Root representing a specific SKU), marked as optional (nullable or `option` type). This accommodates the most granular scenario where different variants (colors, sizes, flavors) might have distinct GTINs.
+    *   Storing it on the base `Product` is generally discouraged unless a strict, invariant business rule dictates all variants *always* share the same GTIN (rare and inflexible).
+
+    **5. Implementation Concept (F# Functional Value Object):**
+    *   A module named `Gtin` will contain all related definitions.
+    *   **Core Type (`Gtin.T`):** A Discriminated Union (DU) defining the possible valid GTIN formats:
+        ```fsharp
+        type T =
+            | Gtin12 of string // Holds the validated 12-digit string
+            | Gtin13 of string // Holds the validated 13-digit string
+        ```
+        *   The DU cases implicitly make the type self-contained and prevent direct instantiation without validation.
+    *   **Error Type (`Gtin.GtinError`):** A DU specifying possible validation failures:
+        ```fsharp
+        type GtinError =
+            | NullOrEmptyInput
+            | UnsupportedFormat of actualLength: int // Input length is not 12 or 13
+            | NonNumericCharacters of value: string
+            | InvalidCheckDigit of value: string * expected: int * actual: int
+            // Note: IncorrectLength is covered by UnsupportedFormat now
+        ```
+    *   **Factory Functions (within `Gtin` module):**
+        *   `tryCreate : string -> Result<T, GtinError>`: The primary factory. Accepts a candidate string. Checks for null/empty. Determines expected format based on length (12 or 13). Delegates to the appropriate specific internal validation logic. Returns `Ok Gtin.T` or `Error GtinError`. Rejects inputs with leading/trailing whitespace or non-standard lengths.
+        *   (Potentially internal/private helper functions for `Gtin12` and `Gtin13` specific validation if logic becomes complex, but `tryCreate` can handle the branching).
+    *   **Accessor Functions (within `Gtin` module):**
+        *   `value : T -> string`: Extracts the underlying numeric string value from a `Gtin.T` instance.
+        *   `format : T -> GtinFormat`: (Optional but recommended) Returns the specific format. Requires a simple `GtinFormat` DU: `type GtinFormat = Gtin12Format | Gtin13Format`.
+
+    **6. Constraints (Enforced Primarily by `Gtin.tryCreate` function):**
+
+    *   **Data Type (Encapsulated):** Internally represents a 12-digit or 13-digit numeric code, stored as a string within the appropriate DU case (`Gtin12` or `Gtin13`) to preserve leading zeros.
+    *   **Optionality / Nullable (on `ProductVariant`):** The `Gtin.T` field on the `ProductVariant` aggregate must be optional (`option<Gtin.T>` or nullable).
+        *   *Rationale:* Not all products sold have a manufacturer-assigned GTIN (custom goods, private label, bundles, etc.).
+        *   *Enforcement:* Field definition on `ProductVariant`.
+    *   **Input Format (Strict):** The input string passed to `Gtin.tryCreate` must not contain leading/trailing whitespace.
+        *   *Rationale:* Ensures clean data, prevents ambiguous inputs.
+        *   *Enforcement:* Check within `Gtin.tryCreate`.
+    *   **Format: Fixed Length (If Present):** If a GTIN value is present (not null/none), it must consist of *exactly* 12 or 13 digits.
+        *   *Rationale:* Adheres to the supported GTIN standards (GTIN-12/UPC-A, GTIN-13/EAN-13).
+        *   *Enforcement:* Length check within `Gtin.tryCreate`. Failure results in `GtinError.UnsupportedFormat`.
+    *   **Format: Digits Only (If Present):** If present, the value must contain only numeric digits (0-9).
+        *   *Rationale:* GTINs are purely numeric codes.
+        *   *Enforcement:* Character check (e.g., `String.forall Char.IsDigit`) within `Gtin.tryCreate`. Failure results in `GtinError.NonNumericCharacters`.
+    *   **Format: Check Digit Validity (Mandatory Validation):** The last digit must correctly correspond to the calculated check digit based on the preceding 11 (for GTIN-12) or 12 (for GTIN-13) digits according to the standard GTIN algorithm.
+        *   *Rationale:* Validates the integrity of the GTIN code itself, catching many common data entry errors. Ensures the code is mathematically sound. A code failing this is not a valid GTIN.
+        *   *Enforcement:* Mandatory validation logic within `Gtin.tryCreate`. Creation fails with `GtinError.InvalidCheckDigit` if the check digit is invalid (providing expected/actual values).
+    *   **Immutability:** `Gtin.T` instances are immutable. The GTIN associated with a product variant definition generally does not change.
+        *   *Rationale:* Reflects the external, standardized nature. Value Objects are immutable.
+        *   *Enforcement:* F# DU immutability by default.
+    *   **Equality:** Structural equality is provided by the F# DU. Two `Gtin.T` instances are equal if they are the same case (`Gtin12` or `Gtin13`) and encapsulate the same string value.
+    *   **Handling Invalid Source Data:** Raw, unvalidated strings received from external sources (e.g., suppliers) that *fail* `Gtin.tryCreate` should *not* be forced into a `Gtin.T` type. If they must be stored for auditing or correction, use a separate, optional `string` field on the `ProductVariant` (e.g., `RawSupplierGtin: option<string>`).
+
+    **7. Uniqueness (System-Level Guideline):**
+    *   *Constraint:* While multiple `ProductVariants` (SKUs) of the *same base product* might share the same GTIN, a single `Gtin.T` value should not typically identify two fundamentally *different active base products* within the retailer's system.
+    *   *Rationale:* Ensures clarity when the GTIN is used as a lookup key.
+    *   *Enforcement:* Data governance rule. Potentially checked via:
+        *   Database unique index (allowing multiple nulls) on the persisted GTIN string column in the `ProductVariants` table.
+        *   Checks within the Application Service layer before saving/updating `ProductVariant` aggregates.
+
+    **8. Persistence:**
+    *   The `Gtin.T` value should be persisted as a single string column in the database (e.g., `VARCHAR(13)`) to accommodate the longest format.
+    *   The `Gtin.value` accessor function is used to get the string for storage.
+    *   When reading from the database, the string is passed to `Gtin.tryCreate` to reconstruct the validated `Gtin.T` instance.
+
+    **9. Relationship to Other Domain Concepts:**
+    *   Associated with a `ProductVariant` (SKU).
+    *   Distinct from internal `Sku` and `ProductId`.
+    *   Used for Inventory Receiving, External Marketplace integration, POS integration, etc.
+
+    This updated specification incorporates the move to a generic `Gtin` module, support for GTIN-12 and GTIN-13 via a DU, standalone factory functions within the module, and detailed error types, aligning with the F# functional approach requested.
+
 
 ### Descriptive Content
 
