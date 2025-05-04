@@ -7,7 +7,8 @@ fsharp_library(
     internals_visible_to = ["StoreZero.Inventory.Domain.ValueObject.Tests"],
     srcs = [
       "src/StoreZero.fs",
-      "src/Domain/ValueObject.fs",
+      "src/Domain/ValueObject/ValueObject.fs",
+      "src/Domain/ValueObject/ProductId.fs",
     ],
 
     deps = [
@@ -21,7 +22,8 @@ fsharp_library(
     internals_visible_to = ["StoreZero.Inventory.Domain.Product.Tests"],
     srcs = [
       "src/StoreZero.fs",
-      "src/Domain/ValueObject.fs",
+      "src/Domain/ValueObject/ValueObject.fs",
+      "src/Domain/ValueObject/ProductId.fs",
       "src/Domain/Entity/Product.fs",
     ],
 
@@ -35,7 +37,8 @@ fsharp_library(
     target_frameworks = ["net9.0"],
     srcs = [
       "src/StoreZero.fs",
-      "src/Domain/ValueObject.fs",
+      "src/Domain/ValueObject/ValueObject.fs",
+      "src/Domain/ValueObject/ProductId.fs",
       "src/Domain/Entity/Product.fs",
     ],
 
@@ -47,7 +50,8 @@ fsharp_library(
 fsharp_nunit_test(
     name = "StoreZero.Inventory.Domain.ValueObject.Tests",
     srcs = [
-      "test/StoreZero.Inventory.Tests/Domain/ValueObjectTest.fs",
+      "test/StoreZero.Inventory.Tests/Domain/ValueObject/ValueObjectTest.fs",
+      "test/StoreZero.Inventory.Tests/Domain/ValueObject/ProductIdTest.fs",
     ],
 
     target_frameworks = ["net9.0"],
@@ -58,10 +62,6 @@ fsharp_nunit_test(
         "@paket.main//fsunit",
         "@paket.main//nunitlite",
     ],
-
-    # Optional: Add test arguments, environment variables, tags, etc.
-    # args = ["--my-test-arg"],
-    # tags = ["fsharp", "unit"],
 )
 
 fsharp_nunit_test(

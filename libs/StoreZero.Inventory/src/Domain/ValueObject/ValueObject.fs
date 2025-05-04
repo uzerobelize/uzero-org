@@ -4,27 +4,6 @@ open System // Needed for Guid, Decimal, DateTimeOffset, Uri
 
 // Contains the Value Object definitions for the Product domain.
 
-// Represents a validated Product Identifier.
-module ProductId =
-  type T = private ProductId of Guid
-    with
-      override this.ToString() =
-        match this with
-        | ProductId guidValue -> guidValue.ToString()
-
-  // Creates a validated ProductId from a Guid.
-  // TODO: Define validation and creation logic for ProductId Value Object.
-  let create (id: Guid) : Result<T, string> =
-    if id = Guid.Empty then
-      Error "ProductId cannot be empty."
-    else
-      Ok (ProductId id)
-
-  // Returns the unwrapped Guid value of the ProductId.
-  let value (instance: T) : Guid =
-    match instance with
-    | ProductId innerId -> innerId
-
 // Represents a validated Stock Keeping Unit.
 module Sku =
   type T = private Sku of string

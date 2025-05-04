@@ -9,32 +9,6 @@ open System // Needed for Guid, Decimal
 module ValueObjectTests =
 
     [<Test>]
-    let ``ProductId create returns Ok for valid Guid`` () =
-        let validId = System.Guid.NewGuid()
-        let result = ProductId.create validId
-        match result with
-        | Ok productId -> ProductId.value productId |> should equal validId
-        | Error _ -> failwith "Expected Ok result"
-
-    [<Test>]
-    let ``ProductId create returns Error for empty Guid`` () =
-        let invalidId = System.Guid.Empty
-        let result = ProductId.create invalidId
-        result |> should equal (Error "ProductId cannot be empty.")
-
-    [<Test>]
-    let ``ProductId value unwraps the Guid`` () =
-        let testGuid = System.Guid.NewGuid()
-        let productId = ProductId.create testGuid |> Result.toOption |> Option.get
-        ProductId.value productId |> should equal testGuid
-
-    [<Test>]
-    let ``ProductId ToString returns Guid string representation`` () =
-        let testGuid = System.Guid.NewGuid()
-        let productId = ProductId.create testGuid |> Result.toOption |> Option.get
-        productId.ToString() |> should equal (testGuid.ToString())
-
-    [<Test>]
     let ``Sku create returns Ok for valid string`` () =
         let validSku = "SKU12345"
         let result = Sku.create validSku
