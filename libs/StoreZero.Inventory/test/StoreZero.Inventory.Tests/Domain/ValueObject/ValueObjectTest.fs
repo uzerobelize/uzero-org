@@ -41,38 +41,6 @@ module ValueObjectTests =
         sku.ToString() |> should equal testSku
 
     [<Test>]
-    let ``BarcodeUpc create returns Ok for valid string`` () =
-        let validBarcode = "123456789012"
-        let result = BarcodeUpc.create validBarcode
-        match result with
-        | Ok barcode -> BarcodeUpc.value barcode |> should equal validBarcode
-        | Error _ -> failwith "Expected Ok result"
-
-    [<Test>]
-    let ``BarcodeUpc create returns Error for empty string`` () =
-        let invalidBarcode = ""
-        let result = BarcodeUpc.create invalidBarcode
-        result |> should equal (Error "Barcode/UPC cannot be empty.")
-
-    [<Test>]
-    let ``BarcodeUpc create returns Error for whitespace string`` () =
-        let invalidBarcode = "   "
-        let result = BarcodeUpc.create invalidBarcode
-        result |> should equal (Error "Barcode/UPC cannot be empty.")
-
-    [<Test>]
-    let ``BarcodeUpc value unwraps the string`` () =
-        let testBarcode = "987654321098"
-        let barcode = BarcodeUpc.create testBarcode |> Result.toOption |> Option.get
-        BarcodeUpc.value barcode |> should equal testBarcode
-
-    [<Test>]
-    let ``BarcodeUpc ToString returns string representation`` () =
-        let testBarcode = "987654321098"
-        let barcode = BarcodeUpc.create testBarcode |> Result.toOption |> Option.get
-        barcode.ToString() |> should equal testBarcode
-
-    [<Test>]
     let ``ProductName create returns Ok for valid string`` () =
         let validName = "Test Product Name"
         let result = ProductName.create validName

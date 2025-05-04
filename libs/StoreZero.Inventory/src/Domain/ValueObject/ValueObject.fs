@@ -25,27 +25,6 @@ module Sku =
     match instance with
     | Sku innerValue -> innerValue
 
-// Represents a validated Barcode/UPC.
-module BarcodeUpc =
-  type T = private BarcodeUpc of string
-    with
-      override this.ToString() =
-        match this with
-        | BarcodeUpc stringValue -> stringValue
-
-  // Creates a validated Barcode/UPC from a string.
-  // TODO: Define validation and creation logic for BarcodeUpc Value Object.
-  let create (value: string) : Result<T, string> =
-    if System.String.IsNullOrWhiteSpace(value) then
-      Error "Barcode/UPC cannot be empty."
-    else
-      Ok (BarcodeUpc value)
-
-  // Returns the unwrapped string value of the Barcode/UPC.
-  let value (instance: T) : string =
-    match instance with
-    | BarcodeUpc innerValue -> innerValue
-
 // Represents a validated Product Name.
 module ProductName =
   type T = private ProductName of string
