@@ -93,7 +93,7 @@ module Gtin =
     // ----------------------------------------------------------------------
     // Public Factory Function
     // ----------------------------------------------------------------------
-    let tryCreate (candidateValue: string) : Result<T, GtinError> =
+    let create (candidateValue: string) : Result<T, GtinError> =
         validateNotNullOrWhitespace candidateValue
         |> Result.bind validateLength
         |> Result.bind validateNumeric

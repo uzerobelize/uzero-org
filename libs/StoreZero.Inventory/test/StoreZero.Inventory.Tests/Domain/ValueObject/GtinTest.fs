@@ -19,7 +19,7 @@ type GtinTests () =
     [<Test>]
     member this.``Should create Gtin12 for valid 12-digit input`` () =
         let input = "036000291452"
-        let result = Gtin.tryCreate input
+        let result = Gtin.create input
         result |> Result.isOk |> should be True
         let gtin = GtinTests.getValueOrFail result
         Gtin.value gtin |> should equal input
@@ -28,7 +28,7 @@ type GtinTests () =
     [<Test>]
     member this.``Should create Gtin12 for another valid 12-digit input`` () =
         let input = "012345678905"
-        let result = Gtin.tryCreate input
+        let result = Gtin.create input
         result |> Result.isOk |> should be True
         let gtin = GtinTests.getValueOrFail result
         Gtin.value gtin |> should equal input
@@ -37,7 +37,7 @@ type GtinTests () =
     [<Test>]
     member this.``Should create Gtin13 for valid 13-digit input`` () =
         let input = "6291041500213"
-        let result = Gtin.tryCreate input
+        let result = Gtin.create input
         result |> Result.isOk |> should be True
         let gtin = GtinTests.getValueOrFail result
         Gtin.value gtin |> should equal input
@@ -46,7 +46,7 @@ type GtinTests () =
     [<Test>]
     member this.``Should create Gtin13 for ISBN-13 as GTIN-13`` () =
         let input = "9780201379624"
-        let result = Gtin.tryCreate input
+        let result = Gtin.create input
         result |> Result.isOk |> should be True
         let gtin = GtinTests.getValueOrFail result
         Gtin.value gtin |> should equal input
@@ -59,7 +59,7 @@ type GtinTests () =
     [<TestCase("\t", TestName = "Tab Character")>]
     [<TestCase("\n", TestName = "Newline Character")>]
     member _.``Should return NullOrEmptyInput for invalid inputs`` (input: string) =
-        let result = Gtin.tryCreate input
+        let result = Gtin.create input
         result |> Result.isError |> should be True
         match result with // Explicitly check the error case
         | Error Gtin.NullOrEmptyInput -> () // Correct error type
@@ -72,7 +72,7 @@ type GtinTests () =
     [<TestCase("123456789012345", 15, TestName = "Length 15")>]
     member _.``Should return UnsupportedFormat for non 12 or 13 lengths``
         (input: string, expectedLength: int) =
-        let result = Gtin.tryCreate input
+        let result = Gtin.create input
         result |> Result.isError |> should be True
         match result with // Explicitly check error case and data
         | Error (Gtin.UnsupportedFormat actualLength) ->
@@ -89,7 +89,7 @@ type GtinTests () =
     [<TestCase("ABCDEFGHIJKLM", TestName = "Letters Only Length 13")>]
     member _.``Should return NonNumericCharacters for invalid characters``
         (input: string) =
-        let result = Gtin.tryCreate input
+        let result = Gtin.create input
         result |> Result.isError |> should be True // Check line 82 area
         match result with // Explicitly check error case and data
         | Error (Gtin.NonNumericCharacters actualValue) ->
@@ -103,7 +103,7 @@ type GtinTests () =
         let input = "036000291453" // Valid check digit is 2
         let expectedCheck = 2
         let actualCheck = 3
-        let result = Gtin.tryCreate input
+        let result = Gtin.create input
 
         result |> Result.isError |> should be True
         match result with // Explicitly check error case and data
@@ -120,7 +120,7 @@ type GtinTests () =
         let input = "6291041500214" // Valid check digit is 3
         let expectedCheck = 3
         let actualCheck = 4
-        let result = Gtin.tryCreate input
+        let result = Gtin.create input
 
         result |> Result.isError |> should be True
         match result with // Explicitly check error case and data
@@ -137,7 +137,7 @@ type GtinTests () =
         let input = "012345678901" // Check digit should be 5
         let expectedCheck = 5
         let actualCheck = 1
-        let result = Gtin.tryCreate input
+        let result = Gtin.create input
 
         result |> Result.isError |> should be True
         match result with // Explicitly check error case and data
@@ -154,7 +154,7 @@ type GtinTests () =
         let input = "9780201379625" // Check digit should be 4
         let expectedCheck = 4
         let actualCheck = 5
-        let result = Gtin.tryCreate input
+        let result = Gtin.create input
 
         result |> Result.isError |> should be True
         match result with // Explicitly check error case and data
