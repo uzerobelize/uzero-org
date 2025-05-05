@@ -264,11 +264,93 @@ Attributes of ValidatedProduct:
         *   Use the term `ProductName` consistently in discussions, code, and requirements related to the primary name of a product.
         *   Refer to its constraints explicitly (e.g., "`ProductName` maximum length", "invalid characters for `ProductName`").
 
-*   **ShortDescription (`ProductDescription.T` Value Object):**
-    *   **Description:** Concise marketing "hook" or summary highlighting key benefits/features for listings and quick views.
-    *   **Purpose:** Quick Value Proposition, Engagement, Highlight Key Features, Space Efficiency, Differentiation.
-    *   **Placement:** `Product` Aggregate Root.
-    *   **Constraints:** Optional (can be empty/null). If present, must not be whitespace. Max length significantly shorter than LongDescription (e.g., effective display 100-250 chars, storage 250-500 chars). Immutable VO.
+*   **Conceptual Name:** `ShortDescription`
+
+    **2. Purpose & Domain Significance:**
+
+    *   Represents a concise, engaging summary of the product, designed to quickly communicate its primary benefit, key feature, or core value proposition.
+    *   Serves as a marketing "hook" or abstract, distinct from the primary `Name` and the comprehensive `LongDescription`.
+    *   It is part of the Ubiquitous Language used by merchandising, content, UI/UX, and development teams (e.g., "Write the short description," "Display the summary near the price," "The hook text for the listing page").
+    *   **Key Usage Context:** Often displayed in UI elements with limited space, such as:
+        *   Product Listing Pages (PLPs) / Category Grids
+        *   Search Result Snippets
+        *   Product Detail Pages (PDPs) near the price/title
+        *   Related/Recommended Product widgets
+        *   Mobile views where brevity is paramount.
+
+    **3. Placement within the Domain Model:**
+
+    *   Belongs to the `Product` Aggregate Root.
+    *   Typically summarizes the overall product concept, though specific marketing needs might occasionally warrant variant-level summaries handled differently.
+
+    **4. Importance (Rationale for Value Object):**
+
+    *   **Validity & Constraints:** Ensures the text adheres to specific business rules (brevity, format, presence if provided), preventing invalid data from entering the domain.
+    *   **Clarity & Intent:** Makes the domain model explicit about the purpose and nature of this text, distinguishing it from generic strings (`Name`, `LongDescription`, attributes).
+    *   **Encapsulation:** Bundles the descriptive text with its validation and normalization logic.
+    *   **Reduced Primitive Obsession:** Avoids treating specifically constrained descriptive text as a generic `string`.
+    *   **Consistency:** Promotes uniform handling, validation, and usage across the application.
+
+    **5. Implementation Concept (DDD Value Object Pattern):**
+
+    *   Implemented as an immutable custom Value Object type (`ShortDescription`).
+    *   Internally encapsulates the normalized summary string.
+    *   Creation is controlled exclusively via a static factory method (e.g., `ShortDescription.TryCreate(string rawValue)` or similar).
+    *   The factory method performs validation and normalization on the input string.
+    *   If the input is valid after normalization, the factory returns a `Success` result containing an immutable `ShortDescription` instance.
+    *   If the input is invalid, the factory returns a `Failure` result containing details about the validation errors (see Error Handling).
+
+    **6. Constraints (Enforced by Value Object Factory):**
+
+    | Constraint                  | Rule / Value                                                                                                                                                                                                                                                                                                | Rationale & Notes                                                                                                |
+    | :-------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------- |
+    | **Optionality on Entity** | The `ShortDescription` field on the `Product` Aggregate Root is **Optional** (nullable or `Option<ShortDescription>`).                                                                                                                                                                                      | Allows flexibility during product creation/import. Content enrichment may happen later.                          |
+    |                             |                                                                                                                                                                                                                                                                                                             | *Note:* Lifecycle rules (e.g., "Required before Product can be Published") are enforced by Domain Services or Application Logic, not the VO itself. |
+    | **Non-Empty / Whitespace**  | If a value is provided, it **must not** be empty or consist solely of whitespace **after** normalization. (Effectively `normalizedValue.Length > 0`).                                                                                                                                                      | An empty/whitespace summary provides no value.                                                                 |
+    | **Maximum Length**          | **160 characters**.                                                                                                                                                                                                                                                                                         | Enforces brevity suitable for UI snippets and aligns with common SEO meta description limits. Confirmed limit.     |
+    | **Format**                  | **Plain Text Only.**                                                                                                                                                                                                                                                                                          | Ensures consistency, security, and avoids complex rendering/sanitization logic for this concise field.            |
+    |                             | **Must not** contain HTML, XML, Markdown tags, or other markup.                                                                                                                                                                                                                                           |                                                                                                                  |
+    |                             | **Must not** contain control characters (ASCII 0-31), except for allowed standard whitespace (` `).                                                                                                                                                                                                       | Prevents rendering issues and potential injection vectors.                                                     |
+    | **Allowed Characters**      | Must consist **only** of: <br/> - Unicode Letters <br/> - Numbers (0-9) <br/> - Standard Whitespace (` `) <br/> - **Allowed Punctuation & Symbols:** <br/>   - Essential: `.` `,` `?` `!` `'` `"` <br/>   - Connectors/Groupers: `-` `:` `;` `(` `)` `/` <br/>   - Branding Symbols: `&` `™` `®` `©` <br/>   - Common Symbols: `$` `€` `£` `%` `+` `*` `#` | Allows for readable, engaging marketing text across multiple languages, while preventing unwanted characters. The exact list must be strictly enforced by the validation logic. The list of symbols (`™`, currency, etc.) may be reviewed and expanded based on future business needs. |
+    | **Immutability**            | The `ShortDescription` instance is **immutable**.                                                                                                                                                                                                                                                         | Standard Value Object characteristic. Changes require creating a new instance and updating the `Product`.         |
+    | **Uniqueness**              | **Not required.**                                                                                                                                                                                                                                                                                         | It's descriptive marketing text; different products can share similar summaries.                               |
+
+    **7. Normalization Rules (Applied by Factory Before Validation):**
+
+    The following steps are applied sequentially to the raw input string during creation:
+
+    1.  **Trim Whitespace:** Remove leading and trailing whitespace characters.
+    2.  **Replace Newlines:** Replace all occurrences of newline characters (`\r\n`, `\n`, `\r`) with a single space character (` `).
+    3.  **Collapse Internal Whitespace:** Replace sequences of multiple internal whitespace characters (including spaces resulting from newline replacement) with a single space character (` `).
+
+    *Example:* `"  Product A \n   is great!  "` becomes `"Product A is great!"`
+
+    **8. Error Handling (Factory Method):**
+
+    *   The factory method (e.g., `TryCreate`) should return a `Result` object (e.g., `Result<ShortDescription, ErrorList>`) rather than throwing exceptions for validation failures.
+    *   Potential validation errors include:
+        *   `ValueIsEmptyOrWhitespace`: The input (after normalization) was empty.
+        *   `ValueExceedsMaxLength`: The input (after normalization) exceeds the 160-character limit.
+        *   `ValueContainsInvalidCharacters`: The input (after normalization) contains characters not present in the defined **Allowed Characters** list.
+
+    **9. Equality Semantics:**
+
+    *   Two `ShortDescription` instances are considered equal if their **normalized** internal string values are identical.
+    *   Comparison is typically **case-sensitive** unless explicitly defined otherwise by business requirements.
+
+    **10. Relationship to Other Domain Concepts:**
+
+    *   Associated with the `Product` Aggregate Root.
+    *   Provides a concise summary that expands slightly on the product `Name`.
+    *   Acts as an introduction or teaser for the more detailed `LongDescription`.
+    *   Consumed by the User Interface layer for display (PLP, PDP, etc.).
+    *   Contributes moderately to SEO; it may serve as **input** or a default for meta descriptions, but a dedicated SEO service might override or refine this.
+
+    **11. Localization:**
+
+    *   The `ShortDescription` Value Object represents the text in a *single* language.
+    *   If multi-language support is required, the `Product` entity is responsible for managing multiple `ShortDescription` instances, potentially using a structure like `Map<Locale, ShortDescription>`. The VO definition itself remains focused on the constraints of a single description string.
+
 *   **LongDescription (`ProductDescription.T` Value Object):**
     *   **Description:** Comprehensive, detailed description for the Product Detail Page (PDP), including features, benefits, specs, usage, etc.
     *   **Purpose:** Informed Purchase Decisions, Reduces Returns/Support, Builds Trust, SEO Content, Brand Storytelling, Comparison.
