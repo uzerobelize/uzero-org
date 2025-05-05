@@ -195,11 +195,75 @@ Attributes of ValidatedProduct:
 
 ### Descriptive Content
 
-*   **Name (`ProductName.T` Value Object):**
-    *   **Description:** Primary, human-readable title identifying the core product concept. Crucial for SEO and user identification.
-    *   **Purpose:** Findability, Identification, User Experience, Communication, First Impression.
-    *   **Placement:** `Product` Aggregate Root.
-    *   **Constraints:** Must not be null or whitespace. Length between 40 - 80 characters (configurable for display/SEO, storage allows more). Allows standard characters, disallows control characters. Immutable VO (updates replace). Uniqueness is a guideline, not a strict constraint. Mandatory.
+*   **Conceptual Field Name:** `ProductName`
+
+    4.  **Purpose:**
+        Represents the validated, canonical, and human-readable name of a Product concept. It serves as the primary textual identifier for products, ensuring consistency, validity, and adherence to specific business rules across the system. It encapsulates the name string along with its normalization and validation logic, preventing invalid states within the domain model.
+
+    5.  **Key Characteristics:**
+        *   **Immutability:** Once created, a `ProductName` instance cannot be altered. Modifications result in a new instance.
+        *   **Validation:** Creation involves strict validation against defined constraints.
+        *   **Normalization:** Applies specific whitespace handling rules during creation.
+        *   **Equality:** Based on the *normalized, case-insensitive* string value.
+        *   **Expressiveness:** Replaces primitive `string` types for product names, clarifying intent and enforcing rules.
+
+    6.  **Constraints & Validation Rules (Applied During Creation):**
+        *   **Non-Empty/Null:** Input cannot be null, empty, or consist only of whitespace *before* normalization.
+        *   **Whitespace Normalization:**
+            *   Leading and trailing whitespace characters are removed.
+            *   Sequences of multiple internal whitespace characters are collapsed into a single space.
+            *   *Example:* `"   Deluxe  Widget   Pro (v2)  "` becomes `"Deluxe Widget Pro (v2)"`.
+        *   **Minimum Length:** The normalized string must have a minimum length of **4 characters**.
+        *   **Maximum Length:** The normalized string must have a maximum length of **150 characters**.
+        *   **Allowed Characters:** The normalized string must only contain:
+            *   Unicode Letters (supporting international names)
+            *   Numbers (0-9)
+            *   Specific Symbols: space, hyphen (`-`), underscore (`_`), ampersand (`&`), apostrophe (`'`), period (`.`), comma (`,`), parentheses (`()`), forward slash (`/`).
+        *   **Disallowed Characters:** Explicitly prohibits:
+            *   Control characters (e.g., newline, tab - space is allowed post-normalization).
+            *   Characters often problematic in web contexts or search: `<`, `>`, `|`, `\`.
+            *   Other symbols not explicitly listed in the "Allowed Characters" section.
+        *   **Semantic Filtering:** Does **not** perform checks for profanity, reserved words, or other semantic content rules. These are considered separate concerns, potentially handled by Application Services or other domain services/processes.
+
+    7.  **Creation (Factory Function):**
+        *   Creation is handled via a dedicated factory function, typically within a `ProductName` module (e.g., `ProductName.create`).
+        *   **Signature (Conceptual F#):** `create : string -> Result<ProductName, ProductNameError>`
+        *   **Input:** Takes a raw `string` as input.
+        *   **Process:**
+            1.  Checks for null/empty/whitespace-only input.
+            2.  Applies whitespace normalization (trim ends, collapse internal).
+            3.  Validates the normalized string against minimum/maximum length constraints.
+            4.  Validates the normalized string against the allowed character set.
+        *   **Output:**
+            *   **Success:** Returns `Ok(ProductName)` containing the newly created, validated, and normalized `ProductName` instance.
+            *   **Failure:** Returns `Error(ProductNameError)` detailing the *first* validation rule that failed.
+        *   **`ProductNameError` Type (Conceptual F# Discriminated Union):**
+            ```fsharp
+            type ProductNameError =
+                | IsNullOrWhitespace
+                | TooShort of minLength: int * actualLength: int
+                | TooLong of maxLength: int * actualLength: int
+                | ContainsInvalidCharacters of invalidChars: char list
+            ```
+            *(This provides specific reasons for validation failure, suitable for Railway Oriented Programming).*
+
+    8.  **Equality:**
+        *   Two `ProductName` instances are considered equal if their internal, normalized string values are identical when compared in a **case-insensitive** manner.
+        *   *Example:* A `ProductName` created from `"Widget Pro"` is equal to one created from `"widget pro"` or `"  Widget   PRO "`.
+
+    9.  **Value Access:**
+        *   The underlying normalized `string` value can be accessed via a dedicated function within the `ProductName` module.
+        *   **Signature (Conceptual F#):** `value : ProductName -> string`
+        *   This returns the canonical, normalized string representation stored within the Value Object.
+
+    10. **Placement within Domain Model:**
+        *   Primarily resides on the `Product` Aggregate Root, representing the core concept's name.
+        *   Variant-specific naming details (like color or size names) are typically handled as separate attributes on the `ProductVariant` entity. Display names combining these are constructed outside this VO.
+
+    11. **Ubiquitous Language Integration:**
+        *   Use the term `ProductName` consistently in discussions, code, and requirements related to the primary name of a product.
+        *   Refer to its constraints explicitly (e.g., "`ProductName` maximum length", "invalid characters for `ProductName`").
+
 *   **ShortDescription (`ProductDescription.T` Value Object):**
     *   **Description:** Concise marketing "hook" or summary highlighting key benefits/features for listings and quick views.
     *   **Purpose:** Quick Value Proposition, Engagement, Highlight Key Features, Space Efficiency, Differentiation.
