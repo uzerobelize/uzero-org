@@ -25,27 +25,6 @@ module Sku =
     match instance with
     | Sku innerValue -> innerValue
 
-// Represents a validated Product Name.
-module ProductName =
-  type T = private ProductName of string
-    with
-      override this.ToString() =
-        match this with
-        | ProductName stringValue -> stringValue
-
-  // Creates a validated Product Name from a string.
-  // TODO: Define validation and creation logic for ProductName Value Object.
-  let create (value: string) : Result<T, string> =
-    if System.String.IsNullOrWhiteSpace(value) then
-      Error "Product Name cannot be empty."
-    else
-      Ok (ProductName value)
-
-  // Returns the unwrapped string value of the Product Name.
-  let value (instance: T) : string =
-    match instance with
-    | ProductName innerValue -> innerValue
-
 // Represents a validated Description (Short or Long).
 module ProductDescription =
   type T = private ProductDescription of string

@@ -9,6 +9,7 @@ fsharp_library(
       "src/StoreZero.fs",
       "src/Domain/ValueObject/ValueObject.fs",
       "src/Domain/ValueObject/ProductId.fs",
+      "src/Domain/ValueObject/ProductName.fs",
       "src/Domain/ValueObject/Gtin.fs",
     ],
 
@@ -25,6 +26,7 @@ fsharp_library(
       "src/StoreZero.fs",
       "src/Domain/ValueObject/ValueObject.fs",
       "src/Domain/ValueObject/ProductId.fs",
+      "src/Domain/ValueObject/ProductName.fs",
       "src/Domain/ValueObject/Gtin.fs",
       "src/Domain/Entity/Product.fs",
     ],
@@ -41,6 +43,7 @@ fsharp_library(
       "src/StoreZero.fs",
       "src/Domain/ValueObject/ValueObject.fs",
       "src/Domain/ValueObject/ProductId.fs",
+      "src/Domain/ValueObject/ProductName.fs",
       "src/Domain/ValueObject/Gtin.fs",
       "src/Domain/Entity/Product.fs",
     ],
@@ -56,6 +59,7 @@ fsharp_nunit_test(
       "test/StoreZero.Inventory.Tests/Domain/ValueObject/ValueObjectTest.fs",
       "test/StoreZero.Inventory.Tests/Domain/ValueObject/GtinTest.fs",
       "test/StoreZero.Inventory.Tests/Domain/ValueObject/ProductIdTest.fs",
+      "test/StoreZero.Inventory.Tests/Domain/ValueObject/ProductNameTest.fs",
     ],
 
     target_frameworks = ["net9.0"],
