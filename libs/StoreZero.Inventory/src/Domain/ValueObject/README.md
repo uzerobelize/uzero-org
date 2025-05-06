@@ -351,11 +351,91 @@ Attributes of ValidatedProduct:
     *   The `ShortDescription` Value Object represents the text in a *single* language.
     *   If multi-language support is required, the `Product` entity is responsible for managing multiple `ShortDescription` instances, potentially using a structure like `Map<Locale, ShortDescription>`. The VO definition itself remains focused on the constraints of a single description string.
 
-*   **LongDescription (`ProductDescription.T` Value Object):**
-    *   **Description:** Comprehensive, detailed description for the Product Detail Page (PDP), including features, benefits, specs, usage, etc.
-    *   **Purpose:** Informed Purchase Decisions, Reduces Returns/Support, Builds Trust, SEO Content, Brand Storytelling, Comparison.
-    *   **Placement:** `Product` Aggregate Root.
-    *   **Constraints:** Optional (can be empty/null). If present, must not be whitespace. Max length limited by database large text type (`NVARCHAR(MAX)`/`TEXT`). Structure/readability (headings, lists) crucial for usability. Immutable VO.
+*   **Conceptual Name:** `MarkdownLongDescription.T`
+
+    1. Summary
+
+    Name: MarkdownLongDescription
+
+    Type: Value Object (DDD)
+
+    Purpose: Represents the comprehensive, detailed textual description of a Product. It is intended for the main content area of the Product Detail Page (PDP), providing rich, formatted information using Markdown syntax. Its goal is to enhance customer understanding, build purchase confidence, support comparison, and provide SEO-rich content.
+
+    Domain: Inventory
+
+    Aggregate: Product (Typically held as an optional field on the Product Aggregate Root)
+
+    2. Domain Context & Intent
+
+    This Value Object encapsulates the primary narrative content describing a product in detail. It contrasts with the concise ProductName and ShortDescription. By using a specific type (MarkdownLongDescription), we enforce structure, apply validation rules, clarify intent (this is formatted Markdown content), and avoid primitive obsession. It forms a key part of the Ubiquitous Language around product content management ("Update the markdown description," "Ensure the long description formatting is correct").
+
+    3. Implementation Details
+
+    Internal Representation: Encapsulates a single, immutable string value. This string contains the validated and normalized product description text formatted using Markdown syntax.
+
+    Creation: Instances are created exclusively through a static function or a dedicated creation function within a module (e.g., MarkdownLongDescription.create : string -> Result<MarkdownLongDescription, string>). This function enforces all validation rules and normalization steps.
+
+    Validation & Error Handling: The creation function returns a Result<MarkdownLongDescription, ErrorType> (e.g., Result<MarkdownLongDescription, string>) or Choice<MarkdownLongDescription, ErrorType> to indicate success or failure. Failure occurs if any constraint is violated, returning specific error information.
+
+    Immutability: Once created, a MarkdownLongDescription instance cannot be changed. Updates to a product's description involve creating a new MarkdownLongDescription instance and assigning it to the Product. F# records are inherently immutable, making them a good fit.
+
+    4. Constraints & Validation Rules
+
+    These constraints are enforced by the create function before an instance is successfully created.
+
+    Constraint	Rule / Value	Rationale	Enforcement Point
+    Optionality on Product	The field holding this VO on the Product Aggregate is Optional (MarkdownLongDescription option).	Allows product creation before details are finalized. The VO itself represents a present value.	Product Record
+    Format	Markdown. The internal string value must be treated as Markdown content.	Standardizes rich text format, balancing usability and features.	VO Definition
+    Normalization	1. Trim leading/trailing whitespace. <br> 2. Normalize all line endings (\r\n, \r) to LF (\n).	Ensures data consistency and cleanliness.	VO create function
+    Non-Empty/Whitespace	Required. After trimming, the input string must not be empty or consist solely of whitespace.	An empty/blank description provides no value.	VO create function
+    Minimum Length	30 characters (after trimming and normalization).	Ensures the description has minimal substance to be considered "long" and meaningful.	VO create function
+    Maximum Length	No specific domain limit. Limited only by the persistence layer's data type (e.g., NVARCHAR(MAX), TEXT).	Avoids arbitrary limits hindering comprehensive descriptions.	Database Schema
+    Character Set	Unicode (UTF-8 recommended).	Supports global languages, symbols, and emojis.	VO create / DB
+    Disallowed Chars	Disallow Unicode C0 (\u0000-\u001F) & C1 (\u007F-\u009F) control chars except TAB (\u0009), LF (\u000A), CR (\u000D).	Prevents invisible formatting or potentially problematic non-printable characters.	VO create function
+    Markup Validation	Basic check only (non-empty). Does not perform full Markdown syntax validation.	Full validation is complex; relies on Markdown renderer tolerance & user input quality.	VO create function
+    Immutability	VO instance is immutable (achieved via F# records or types).	Standard Value Object property. Ensures state consistency.	F# Type System
+    Uniqueness	Not required.	Descriptive content, not an identifier. Can be shared or sourced externally.	No Constraint
+
+    5. Normalization Steps
+
+    The create function performs the following normalizations before validation checks (like length):
+
+    Trimming: Removes all leading and trailing whitespace characters from the input string.
+
+    Line Ending Conversion: Replaces all occurrences of Windows-style (\r\n) and old Mac-style (\r) line endings with Unix-style (\n) line endings for consistency.
+
+    6. Security Considerations: Sanitization
+
+    CRITICAL: While this VO stores Markdown, it does not perform HTML sanitization.
+
+    Markdown is often rendered to HTML for display. The consuming layer (e.g., UI, API endpoint) is responsible for:
+
+    Converting the Markdown string from MarkdownLongDescription.Value into HTML using a standard Markdown library.
+
+    Sanitizing the resulting HTML using a robust, allow-list-based HTML sanitizer (e.g., OWASP Java HTML Sanitizer, DOMPurify, Bleach - potentially via JS interop or a .NET wrapper) to prevent Cross-Site Scripting (XSS) attacks before rendering it to the user.
+
+    Failure to sanitize the rendered HTML output poses a significant security risk.
+
+    7. Persistence
+
+    Store the internal string value in the database. Use the Value property of the record/type.
+
+    Recommended Database Types: NVARCHAR(MAX) (SQL Server), TEXT (PostgreSQL, MySQL), CLOB (Oracle). Ensure the database collation supports Unicode (e.g., UTF-8).
+
+    When hydrating from the database, use the create function to reconstruct the VO, ensuring data validity.
+
+    8. Relationship to Other Concepts
+
+    Product: Holds the MarkdownLongDescription (as an option type).
+
+    ProductName, ShortDescription: Provides concise identifiers/summaries, while MarkdownLongDescription provides the detail.
+
+    Attributes / Specifications: Structured data (like Key/Value pairs) that the MarkdownLongDescription might elaborate upon in prose format.
+
+    UI (PDP): Primary consumer of this data for display (after rendering and sanitization).
+
+    SEO: A major source of searchable content for the product.
+
 
 ### Classification & Sourcing
 
