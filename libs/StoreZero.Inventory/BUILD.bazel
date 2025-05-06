@@ -11,6 +11,7 @@ fsharp_library(
       "src/Domain/ValueObject/ProductId.fs",
       "src/Domain/ValueObject/ShortDescription.fs",
       "src/Domain/ValueObject/ProductName.fs",
+      "src/Domain/ValueObject/MarkdownLongDescription.fs",
       "src/Domain/ValueObject/Gtin.fs",
     ],
 
@@ -28,6 +29,7 @@ fsharp_library(
       "src/Domain/ValueObject/ValueObject.fs",
       "src/Domain/ValueObject/ProductId.fs",
       "src/Domain/ValueObject/ProductName.fs",
+      "src/Domain/ValueObject/MarkdownLongDescription.fs",
       "src/Domain/ValueObject/ShortDescription.fs",
       "src/Domain/ValueObject/Gtin.fs",
       "src/Domain/Entity/Product.fs",
@@ -46,6 +48,7 @@ fsharp_library(
       "src/Domain/ValueObject/ValueObject.fs",
       "src/Domain/ValueObject/ProductId.fs",
       "src/Domain/ValueObject/ProductName.fs",
+      "src/Domain/ValueObject/MarkdownLongDescription.fs",
       "src/Domain/ValueObject/ShortDescription.fs",
       "src/Domain/ValueObject/Gtin.fs",
       "src/Domain/Entity/Product.fs",
@@ -63,6 +66,7 @@ fsharp_nunit_test(
       "test/StoreZero.Inventory.Tests/Domain/ValueObject/GtinTest.fs",
       "test/StoreZero.Inventory.Tests/Domain/ValueObject/ProductIdTest.fs",
       "test/StoreZero.Inventory.Tests/Domain/ValueObject/ProductNameTest.fs",
+      "test/StoreZero.Inventory.Tests/Domain/ValueObject/MarkdownLongDescriptionTest.fs",
       "test/StoreZero.Inventory.Tests/Domain/ValueObject/ShortDescriptionTest.fs",
     ],
 
