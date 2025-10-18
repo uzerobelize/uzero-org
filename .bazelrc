@@ -14,3 +14,5 @@ build --keep_going
 
 # Example: Toolchain resolution debug
 # build --toolchain_resolution_debug=".*"
+
+test --test_output=streamed
